@@ -12,7 +12,7 @@ public class Person
 	private Profession profession;
 	private Income income;
 	private Book book;
-	
+
 	/**
 	 * @param number
 	 * @param ageClass
@@ -39,25 +39,25 @@ public class Person
 		this.income = income;
 		this.book = book;
 	}
-	
-	public Person (String[] data)
+
+	public Person(String[] data)
 	{
 		super();
-		
+
 		int number = 0;
 		int children = 0;
-		
+
 		// parse number
 		try
 		{
 			number = Integer.parseInt(data[0]);
 			children = Integer.parseInt(data[4]);
-		} 
-		catch (NumberFormatException nfe) 
+		}
+		catch (NumberFormatException nfe)
 		{
 			// TODO
 		}
-		
+
 		// create the person
 		this.number = number;
 		this.ageClass = getAgeClassForString(data[1]);
@@ -69,7 +69,7 @@ public class Person
 		this.income = getIncomeForString(data[7]);
 		this.book = getBookForString(data[8]);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -117,12 +117,12 @@ public class Person
 	{
 		return income;
 	}
-	
+
 	public Book getBook()
 	{
 		return book;
 	}
-	
+
 	// BOOL UTILS
 	private boolean getBoolForString(String s)
 	{
@@ -131,33 +131,58 @@ public class Person
 		else
 			return false;
 	}
-	
+
 	// ENUM UTILS
 	private AgeClass getAgeClassForString(String s)
 	{
 		return null;
 	}
-	
+
 	private Gender getGenderForString(String s)
 	{
+		if (s.equalsIgnoreCase("m"))
+			return Gender.MALE;
+		else if (s.equalsIgnoreCase("w"))
+			return Gender.FEMALE;
+		else
+			System.err.println("Unknown Gender " + s);
 		return null;
+
 	}
-	
+
 	private Degree getDegreeForString(String s)
 	{
 		return null;
 	}
-	
+
 	private Profession getProfessionForString(String s)
 	{
+		if (s.equalsIgnoreCase("Angestellter"))
+			return Profession.ANGESTELLTER;
+		else if (s.equalsIgnoreCase("Arbeiter"))
+			return Profession.ARBEITER;
+		else if (s.equalsIgnoreCase("Arbeitslos"))
+			return Profession.ARBEITSLOS;
+		else if (s.equalsIgnoreCase("Fuehrungskraft"))
+			return Profession.FUEHRUNGSKRAFT;
+		else if (s.equalsIgnoreCase("Hausfrau"))
+			return Profession.HAUSFRAU;
+		else if (s.equalsIgnoreCase("Lehrer"))
+			return Profession.LEHRER;
+		else if (s.equalsIgnoreCase("Rentner"))
+			return Profession.RENTNER;
+		else if (s.equalsIgnoreCase("Selbstaendig"))
+			return Profession.SELBSTSTAENDIG;
+		else
+			System.err.println("Unknown Profession " + s);
 		return null;
 	}
-	
+
 	private Income getIncomeForString(String s)
 	{
 		return null;
 	}
-	
+
 	private Book getBookForString(String s)
 	{
 		return null;

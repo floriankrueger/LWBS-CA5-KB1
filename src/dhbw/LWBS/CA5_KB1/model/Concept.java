@@ -4,5 +4,5 @@ import java.util.HashSet;
 
 public class Concept extends HashSet<Person>
 {
-
+	// TODO implement
 }

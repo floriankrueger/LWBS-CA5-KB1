@@ -155,7 +155,14 @@ public class Person
 
 	private Gender getGenderForString(String s)
 	{
+		if (s.equalsIgnoreCase("m"))
+			return Gender.MALE;
+		else if (s.equalsIgnoreCase("w"))
+			return Gender.FEMALE;
+		else
+			System.err.println("Unknown Gender " + s);
 		return null;
+
 	}
 
 	private Degree getDegreeForString(String s)
@@ -180,6 +187,24 @@ public class Person
 
 	private Profession getProfessionForString(String s)
 	{
+		if (s.equalsIgnoreCase("Angestellter"))
+			return Profession.ANGESTELLTER;
+		else if (s.equalsIgnoreCase("Arbeiter"))
+			return Profession.ARBEITER;
+		else if (s.equalsIgnoreCase("Arbeitslos"))
+			return Profession.ARBEITSLOS;
+		else if (s.equalsIgnoreCase("Fuehrungskraft"))
+			return Profession.FUEHRUNGSKRAFT;
+		else if (s.equalsIgnoreCase("Hausfrau"))
+			return Profession.HAUSFRAU;
+		else if (s.equalsIgnoreCase("Lehrer"))
+			return Profession.LEHRER;
+		else if (s.equalsIgnoreCase("Rentner"))
+			return Profession.RENTNER;
+		else if (s.equalsIgnoreCase("Selbstaendig"))
+			return Profession.SELBSTSTAENDIG;
+		else
+			System.err.println("Unknown Profession " + s);
 		return null;
 	}
 

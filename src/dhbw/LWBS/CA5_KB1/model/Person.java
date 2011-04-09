@@ -12,7 +12,7 @@ public class Person
 	private Profession profession;
 	private Income income;
 	private Book book;
-	
+
 	/**
 	 * @param number
 	 * @param ageClass
@@ -39,25 +39,25 @@ public class Person
 		this.income = income;
 		this.book = book;
 	}
-	
-	public Person (String[] data)
+
+	public Person(String[] data)
 	{
 		super();
-		
+
 		int number = 0;
 		int children = 0;
-		
+
 		// parse number
 		try
 		{
 			number = Integer.parseInt(data[0]);
 			children = Integer.parseInt(data[4]);
-		} 
-		catch (NumberFormatException nfe) 
+		}
+		catch (NumberFormatException nfe)
 		{
 			// TODO
 		}
-		
+
 		// create the person
 		this.number = number;
 		this.ageClass = getAgeClassForString(data[1]);
@@ -69,7 +69,7 @@ public class Person
 		this.income = getIncomeForString(data[7]);
 		this.book = getBookForString(data[8]);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -117,12 +117,12 @@ public class Person
 	{
 		return income;
 	}
-	
+
 	public Book getBook()
 	{
 		return book;
 	}
-	
+
 	// BOOL UTILS
 	private boolean getBoolForString(String s)
 	{
@@ -131,35 +131,89 @@ public class Person
 		else
 			return false;
 	}
-	
+
 	// ENUM UTILS
 	private AgeClass getAgeClassForString(String s)
 	{
+		if (s.equalsIgnoreCase("<18"))
+			return AgeClass.B18;
+		else if (s.equalsIgnoreCase("19-24"))
+			return AgeClass.F19T24;
+		else if (s.equalsIgnoreCase("25-35"))
+			return AgeClass.F25T35;
+		else if (s.equalsIgnoreCase("36-49"))
+			return AgeClass.F36T49;
+		else if (s.equalsIgnoreCase("50-65"))
+			return AgeClass.F50T65;
+		else if (s.equalsIgnoreCase(">65"))
+			return AgeClass.O65;
+		else
+			System.err.println("Unknown AgeClass: " + s);
+
 		return null;
 	}
-	
+
 	private Gender getGenderForString(String s)
 	{
 		return null;
 	}
-	
+
 	private Degree getDegreeForString(String s)
 	{
+		if (s.equalsIgnoreCase("keiner"))
+			return Degree.NONE;
+		else if (s.equalsIgnoreCase("Hauptschule"))
+			return Degree.HAUPTSCHULE;
+		else if (s.equalsIgnoreCase("Realschule"))
+			return Degree.REALSCHULE;
+		else if (s.equalsIgnoreCase("Gymnasium"))
+			return Degree.GYMNASIUM;
+		else if (s.equalsIgnoreCase("Hochschule"))
+			return Degree.HOCHSCHULE;
+		else if (s.equalsIgnoreCase("Promotion"))
+			return Degree.PROMOTION;
+		else
+			System.err.println("Unknown Degree: " + s);
+
 		return null;
 	}
-	
+
 	private Profession getProfessionForString(String s)
 	{
 		return null;
 	}
-	
+
 	private Income getIncomeForString(String s)
 	{
+		if (s.equalsIgnoreCase("<1000"))
+			return Income.B1000;
+		else if (s.equalsIgnoreCase("1000-1999"))
+			return Income.F1000T1999;
+		else if (s.equalsIgnoreCase("2000-2999"))
+			return Income.F2000T2999;
+		else if (s.equalsIgnoreCase("3000-3999"))
+			return Income.F3000T3999;
+		else if (s.equalsIgnoreCase("4000-4999"))
+			return Income.F4000T4999;
+		else if (s.equalsIgnoreCase("5000 und mehr"))
+			return Income.O5000;
+		else
+			System.err.println("Unknown Income: " + s);
+
 		return null;
 	}
-	
+
 	private Book getBookForString(String s)
 	{
+		if (s.equalsIgnoreCase("Buch_A"))
+			return Book.BOOK_A;
+		else if (s.equalsIgnoreCase("Buch_B"))
+			return Book.BOOK_B;
+		else if (s.equalsIgnoreCase("Buch_C"))
+			return Book.BOOK_C;
+		else
+			System.err.println("Unknown Book: " + s);
+
 		return null;
 	}
 }

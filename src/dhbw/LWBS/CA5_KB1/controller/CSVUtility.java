@@ -1,20 +1,18 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 import java.util.Queue;
-import java.util.StringTokenizer;
-
-import dhbw.LWBS.CA5_KB1.model.Person;
 
 public class CSVUtility
 {
-	String fileName = "gruppe_ca5_kb1.csv";
+	File fileName = new File("gruppe_ca5_kb1.csv");
 	String line = "";
-	Queue<String[]> persons = new PriorityQueue<String[]>();
+	Queue<String[]> persons = new LinkedList<String[]>();
 
 	public CSVUtility()
 	{
@@ -23,16 +21,20 @@ public class CSVUtility
 			BufferedReader readCSV = new BufferedReader(
 					new FileReader(fileName));
 
+			//skip the first line
+			readCSV.readLine();
 			while ((line = readCSV.readLine()) != null)
 			{
 				persons.offer(line.split(";"));
 			}
 			readCSV.close();
 
-		} catch (FileNotFoundException e)
+		}
+		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

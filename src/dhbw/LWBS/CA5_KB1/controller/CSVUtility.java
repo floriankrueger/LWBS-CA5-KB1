@@ -1,7 +1,6 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,11 +9,10 @@ import java.util.Queue;
 
 public class CSVUtility
 {
-	File fileName = new File("gruppe_ca5_kb1.csv");
 	String line = "";
 	Queue<String[]> persons = new LinkedList<String[]>();
 
-	public CSVUtility()
+	public CSVUtility(String fileName)
 	{
 		try
 		{

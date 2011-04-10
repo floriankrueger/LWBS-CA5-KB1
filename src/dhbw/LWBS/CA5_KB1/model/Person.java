@@ -85,6 +85,8 @@ public class Person
 		this.profession = Profession.fromString(data[6]);
 		this.income = Income.fromString(data[7]);
 		this.book = Book.fromString(data[8]);
+		
+		initHashMap();
 	}
 	
 	@Override

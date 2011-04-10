@@ -6,8 +6,8 @@ public class Person
 	private int number;
 	private AgeClass ageClass;
 	private Gender gender;
-	private boolean married;
-	private int children;
+	private Married married;
+	private Children children;
 	private Degree degree;
 	private Profession profession;
 	private Income income;
@@ -25,7 +25,7 @@ public class Person
 	 * @param book
 	 */
 	public Person(int number, AgeClass ageClass, Gender gender,
-			boolean married, int children, Degree degree,
+			Married married, Children children, Degree degree,
 			Profession profession, Income income, Book book)
 	{
 		super();
@@ -45,25 +45,23 @@ public class Person
 		super();
 
 		int number = 0;
-		int children = 0;
 
 		// parse number
 		try
 		{
 			number = Integer.parseInt(data[0]);
-			children = Integer.parseInt(data[4]);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.err.println("Unknown number in number or children");
+			System.err.println("Unknown number: " + data[0]);
 		}
 
 		// create the person
 		this.number = number;
 		this.ageClass = getAgeClassForString(data[1]);
 		this.gender = getGenderForString(data[2]);
-		this.married = getBoolForString(data[3]);
-		this.children = children;
+		this.married = getMarriedForString(data[3]);
+		this.children = getChildrenForString(data[4]);
 		this.degree = getDegreeForString(data[5]);
 		this.profession = getProfessionForString(data[6]);
 		this.income = getIncomeForString(data[7]);
@@ -78,11 +76,11 @@ public class Person
 		result = prime * result
 				+ ((ageClass == null) ? 0 : ageClass.hashCode());
 		result = prime * result + ((book == null) ? 0 : book.hashCode());
-		result = prime * result + children;
+		result = prime * result + ((children == null) ? 0 : children.hashCode());
 		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((income == null) ? 0 : income.hashCode());
-		result = prime * result + (married ? 1231 : 1237);
+		result = prime * result + ((married == null) ? 0 : married.hashCode());
 		result = prime * result + number;
 		result = prime * result
 				+ ((profession == null) ? 0 : profession.hashCode());
@@ -136,12 +134,12 @@ public class Person
 		return gender;
 	}
 
-	public boolean isMarried()
+	public Married isMarried()
 	{
 		return married;
 	}
 
-	public int getChildren()
+	public Children getChildren()
 	{
 		return children;
 	}
@@ -166,15 +164,6 @@ public class Person
 		return book;
 	}
 
-	// BOOL UTILS
-	private boolean getBoolForString(String s)
-	{
-		if (s.equals("ja"))
-			return true;
-		else
-			return false;
-	}
-
 	// ENUM UTILS
 	private AgeClass getAgeClassForString(String s)
 	{
@@ -190,9 +179,10 @@ public class Person
 			return AgeClass.F50T65;
 		else if (s.equalsIgnoreCase(">65"))
 			return AgeClass.O65;
+		else if (s.equalsIgnoreCase(""))
+			return AgeClass.NONE;
 		else
 			System.err.println("Unknown AgeClass: " + s);
-
 		return null;
 	}
 
@@ -202,6 +192,8 @@ public class Person
 			return Gender.MALE;
 		else if (s.equalsIgnoreCase("w"))
 			return Gender.FEMALE;
+		else if (s.equalsIgnoreCase(""))
+			return Gender.NONE;
 		else
 			System.err.println("Unknown Gender " + s);
 		return null;
@@ -211,7 +203,7 @@ public class Person
 	private Degree getDegreeForString(String s)
 	{
 		if (s.equalsIgnoreCase("keiner"))
-			return Degree.NONE;
+			return Degree.NO_DEGREE;
 		else if (s.equalsIgnoreCase("Hauptschule"))
 			return Degree.HAUPTSCHULE;
 		else if (s.equalsIgnoreCase("Realschule"))
@@ -222,9 +214,10 @@ public class Person
 			return Degree.HOCHSCHULE;
 		else if (s.equalsIgnoreCase("Promotion"))
 			return Degree.PROMOTION;
+		else if (s.equalsIgnoreCase(""))
+			return Degree.NONE;
 		else
 			System.err.println("Unknown Degree: " + s);
-
 		return null;
 	}
 
@@ -246,6 +239,8 @@ public class Person
 			return Profession.RENTNER;
 		else if (s.equalsIgnoreCase("Selbstaendig"))
 			return Profession.SELBSTSTAENDIG;
+		else if (s.equalsIgnoreCase(""))
+			return Profession.NONE;
 		else
 			System.err.println("Unknown Profession " + s);
 		return null;
@@ -265,9 +260,23 @@ public class Person
 			return Income.F4000T4999;
 		else if (s.equalsIgnoreCase("5000 und mehr"))
 			return Income.O5000;
+		else if (s.equalsIgnoreCase(""))
+			return Income.NONE;
 		else
 			System.err.println("Unknown Income: " + s);
-
+		return null;
+	}
+	
+	private Married getMarriedForString(String s)
+	{
+		if (s.equalsIgnoreCase("ja"))
+			return Married.YES;
+		else if (s.equalsIgnoreCase("nein"))
+			return Married.NO;
+		else if (s.equalsIgnoreCase(""))
+			return Married.NONE;
+		else
+			System.err.println("Unknown Married: " + s);
 		return null;
 	}
 
@@ -279,9 +288,59 @@ public class Person
 			return Book.BOOK_B;
 		else if (s.equalsIgnoreCase("Buch_C"))
 			return Book.BOOK_C;
+		else if (s.equalsIgnoreCase(""))
+			return Book.NONE;
 		else
 			System.err.println("Unknown Book: " + s);
-
+		return null;
+	}
+	
+	private Children getChildrenForString(String s)
+	{
+		if (s.equalsIgnoreCase("0"))
+			return Children.ZERO;
+		else if (s.equalsIgnoreCase("1"))
+			return Children.ONE;
+		else if (s.equalsIgnoreCase("2"))
+			return Children.TWO;
+		else if (s.equalsIgnoreCase("3"))
+			return Children.THREE;
+		else if (s.equalsIgnoreCase("4"))
+			return Children.FOUR;
+		else if (s.equalsIgnoreCase("5"))
+			return Children.FIVE;
+		else if (s.equalsIgnoreCase("6"))
+			return Children.SIX;
+		else if (s.equalsIgnoreCase("7"))
+			return Children.SEVEN;
+		else if (s.equalsIgnoreCase("8"))
+			return Children.EIGHT;
+		else if (s.equalsIgnoreCase("9"))
+			return Children.NINE;
+		else if (s.equalsIgnoreCase("10"))
+			return Children.TEN;
+		else if (s.equalsIgnoreCase("11"))
+			return Children.ELEVEN;
+		else if (s.equalsIgnoreCase("12"))
+			return Children.TWELVE;
+		else if (s.equalsIgnoreCase("13"))
+			return Children.THIRTEEN;
+		else if (s.equalsIgnoreCase("14"))
+			return Children.FOURTEEN;
+		else if (s.equalsIgnoreCase("15"))
+			return Children.FIFTEEN;
+		else if (s.equalsIgnoreCase("16"))
+			return Children.SIXTEEN;
+		else if (s.equalsIgnoreCase("17"))
+			return Children.SEVENTEEN;
+		else if (s.equalsIgnoreCase("18"))
+			return Children.EIGHTEEN;
+		else if (s.equalsIgnoreCase("19"))
+			return Children.NINETEEN;
+		else if (s.equalsIgnoreCase("20"))
+			return Children.TWENTY;
+		else
+			System.err.println("Unknown number of children: " + s);
 		return null;
 	}
 }

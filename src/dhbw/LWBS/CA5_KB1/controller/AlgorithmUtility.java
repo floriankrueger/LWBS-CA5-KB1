@@ -2,7 +2,7 @@ package dhbw.LWBS.CA5_KB1.controller;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import dhbw.LWBS.CA5_KB1.model.AgeClass;
@@ -25,7 +25,10 @@ public class AlgorithmUtility
 		Set<Concept> k = new HashSet<Concept>();
 		for (Person person : positiveExamples)
 		{
+			System.out.println("[BEGIN] VERSION SPACE ALGORITHM \n");
 			Star s = versionSpaceAlgo(person, negativeExamples);
+			System.out.println("[END] VERSION SPACE ALGORITHM \n");
+			System.out.println("Star for book A: " + s);
 			// TODO bestGeneralization
 			// TODO c = c geschnitten s
 			// TODO remove all persons from c that are already covered by s
@@ -38,8 +41,8 @@ public class AlgorithmUtility
 			ArrayList<Person> negativeExamples)
 	{
 		// Declarations
-		Set<Concept> s = new LinkedHashSet<Concept>(); // Menge der speziellsten Konzepte
-		Set<Concept> g = new LinkedHashSet<Concept>(); // Menge der generellsten Konzepte
+		List<Concept> s = new ArrayList<Concept>(); // Menge der speziellsten Konzepte
+		List<Concept> g = new ArrayList<Concept>(); // Menge der generellsten Konzepte
 		// Menge der noch nicht vorgelegten Beispiele entspricht positiveExamples & negative Examples
 		// Menge der bereits vorgelegten Beispiele muss nicht gefuehrt werden, da die for each 
 		//  Schleife jedes Beispiel nur einmal verwendet
@@ -112,7 +115,7 @@ public class AlgorithmUtility
 					for (String key : a.getAttributes().keySet())
 					{
 						int a_Attribute = a.getAttributes().get(key);
-						int s_Attribute = s.iterator().next().getAttributes()
+						int s_Attribute = s.get(0).getAttributes()
 								.get(key);
 
 						if ((a_Attribute != s_Attribute)
@@ -197,7 +200,7 @@ public class AlgorithmUtility
 	 * @param a
 	 *            the given Person example
 	 */
-	private static void deleteEqualConcepts(Set<Concept> s, Person a)
+	private static void deleteEqualConcepts(List<Concept> s, Person a)
 	{
 		System.out.println(">> [BEGIN] deleting equal concepts");
 		for (Concept cS : s)

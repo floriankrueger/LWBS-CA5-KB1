@@ -1,6 +1,8 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Star
@@ -10,14 +12,14 @@ public class Star
 
 	public Star()
 	{
-		this(new HashSet<Concept>(), new HashSet<Concept>());
+		this(new ArrayList<Concept>(), new ArrayList<Concept>());
 	}
 	
-	public Star(Set<Concept> s, Set<Concept> g)
+	public Star(List<Concept> s, List<Concept> g)
 	{
 		super();
-		this.specializedConcepts = s;
-		this.generalizedConcepts = g;
+		this.specializedConcepts = new HashSet<Concept>(s);
+		this.generalizedConcepts = new HashSet<Concept>(g);
 	}
 	
 	public boolean addSpecializedConcept(Concept c)
@@ -28,5 +30,10 @@ public class Star
 	public boolean addGeneralizedConcept(Concept c)
 	{
 		return generalizedConcepts.add(c);
+	}
+	
+	public String toString()
+	{
+		return "S: " + specializedConcepts + "\nG: " + generalizedConcepts;
 	}
 }

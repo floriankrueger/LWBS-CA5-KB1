@@ -184,7 +184,7 @@ public class AlgorithmUtility
 			}
 		}
 		System.out.println("> VS algorithm is terminating successfully (no more examples to learn)");
-		return null;
+		return new Star(s, g);
 	}
 
 	/**

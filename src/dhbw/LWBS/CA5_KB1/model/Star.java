@@ -8,12 +8,12 @@ public class Star
 	private Set<Concept> specializedConcepts;
 	private Set<Concept> generalizedConcepts;
 
-	Star()
+	public Star()
 	{
 		this(new HashSet<Concept>(), new HashSet<Concept>());
 	}
 	
-	Star(Set<Concept> s, Set<Concept> g)
+	public Star(Set<Concept> s, Set<Concept> g)
 	{
 		super();
 		this.specializedConcepts = s;

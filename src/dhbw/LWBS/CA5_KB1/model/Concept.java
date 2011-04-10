@@ -24,8 +24,48 @@ public class Concept extends Person
 
 	public boolean covers(Person p)
 	{
-		// TODO implement "covers"
+		for (String attributeKey : attributes.keySet())
+		{
+			int this_Attribute = attributes.get(attributeKey);
+			int other_Attribute = p.getAttributes().get(attributeKey);
+			
+			if ((this_Attribute != other_Attribute) || (this_Attribute != 100))
+				return false;
+		}
 		return true;
+	}
+	
+	public Concept copy()
+	{
+		Concept temp = new Concept(AgeClass.fromInteger(ageClass.getId()), 
+				Gender.fromInteger(gender.getId()),
+				Married.fromInteger(married.getId()),
+				Children.fromInteger(children.getId()),
+				Degree.fromInteger(degree.getId()), 
+				Profession.fromInteger(profession.getId()), 
+				Income.fromInteger(income.getId()));
+		
+		return temp;
+	}
+	
+	public void setAttribute (String name, Integer attribute)
+	{
+		if (name.equals(AgeClass.NAME))
+			setAgeClass(AgeClass.fromInteger(attribute));
+		else if (name.equals(Gender.NAME))
+			setGender(Gender.fromInteger(attribute));
+		else if (name.equals(Married.NAME))
+			setMarried(Married.fromInteger(attribute));
+		else if (name.equals(Children.NAME))
+			setChildren(Children.fromInteger(attribute));
+		else if (name.equals(Degree.NAME))
+			setDegree(Degree.fromInteger(attribute));
+		else if (name.equals(Profession.NAME))
+			setProfession(Profession.fromInteger(attribute));
+		else if (name.equals(Income.NAME))
+			setIncome(Income.fromInteger(attribute));
+		else
+			System.err.println("setAttribute called with unknown attribute name: " + name);
 	}
 	
 	public boolean equals(Person other)
@@ -58,19 +98,6 @@ public class Concept extends Person
 		return super.toConceptString();
 	}
 
-	/*
-	 * TODO : irgendwann loeschen public void generalizeAgeClass(AgeClass a) {
-	 * if (ageClass == a) ageClass = a; else if (ageClass != a) ageClass =
-	 * AgeClass.ALL;
-	 * 
-	 * 
-	 * if (c.getAgeClass() == AgeClass.NONE) { c.setAgeClass(p.getAgeClass()); }
-	 * else if (p.getAgeClass() == AgeClass.NONE) { // no action required } else
-	 * if (p.getAgeClass() == c.getAgeClass()) { // no action required either }
-	 * else if (p.getAgeClass() != c.getAgeClass()) {
-	 * c.setAgeClass(AgeClass.ALL); } }
-	 */
-
 	/**
 	 * @param ageClass
 	 *            the ageClass to set
@@ -78,7 +105,7 @@ public class Concept extends Person
 	public void setAgeClass(AgeClass ageClass)
 	{
 		this.ageClass = ageClass;
-		this.attributes.put(AgeClass.class, this.ageClass.getId());
+		this.attributes.put(AgeClass.NAME, this.ageClass.getId());
 	}
 
 	/**
@@ -88,7 +115,7 @@ public class Concept extends Person
 	public void setGender(Gender gender)
 	{
 		this.gender = gender;
-		this.attributes.put(Gender.class, this.gender.getId());
+		this.attributes.put(Gender.NAME, this.gender.getId());
 	}
 
 	/**
@@ -98,7 +125,7 @@ public class Concept extends Person
 	public void setMarried(Married married)
 	{
 		this.married = married;
-		this.attributes.put(Married.class, this.married.getId());
+		this.attributes.put(Married.NAME, this.married.getId());
 	}
 
 	/**
@@ -108,7 +135,7 @@ public class Concept extends Person
 	public void setChildren(Children children)
 	{
 		this.children = children;
-		this.attributes.put(Children.class, this.children.getId());
+		this.attributes.put(Children.NAME, this.children.getId());
 	}
 
 	/**
@@ -118,7 +145,7 @@ public class Concept extends Person
 	public void setDegree(Degree degree)
 	{
 		this.degree = degree;
-		this.attributes.put(Degree.class, this.degree.getId());
+		this.attributes.put(Degree.NAME, this.degree.getId());
 	}
 
 	/**
@@ -128,7 +155,7 @@ public class Concept extends Person
 	public void setProfession(Profession profession)
 	{
 		this.profession = profession;
-		this.attributes.put(Profession.class, this.profession.getId());
+		this.attributes.put(Profession.NAME, this.profession.getId());
 	}
 
 	/**
@@ -138,6 +165,6 @@ public class Concept extends Person
 	public void setIncome(Income income)
 	{
 		this.income = income;
-		this.attributes.put(Income.class, this.income.getId());
+		this.attributes.put(Income.NAME, this.income.getId());
 	}
 }

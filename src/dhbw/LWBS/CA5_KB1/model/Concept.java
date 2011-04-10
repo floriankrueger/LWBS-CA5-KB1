@@ -1,5 +1,7 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+import java.util.Map;
+
 public class Concept extends Person
 {
 	Concept(AgeClass ageClass, Gender gender, Married married,
@@ -27,9 +29,10 @@ public class Concept extends Person
 		for (String attributeKey : attributes.keySet())
 		{
 			int this_Attribute = attributes.get(attributeKey);
-			int other_Attribute = p.getAttributes().get(attributeKey);
+			Map<String,Integer> att = p.getAttributes();
+			int other_Attribute = att.get(attributeKey);
 			
-			if ((this_Attribute != other_Attribute) || (this_Attribute != 100))
+			if ((this_Attribute != other_Attribute) && (this_Attribute != 100))
 				return false;
 		}
 		return true;

@@ -1,6 +1,7 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.apache.commons.collections.ListUtils;
 
@@ -36,15 +37,23 @@ public class CA5_KB1
 		ArrayList<Person> bookB = new ArrayList<Person>();
 		ArrayList<Person> bookC = new ArrayList<Person>();
 
+		System.out.print("Reading data for training from: " + trainingData + " ..");
 		trainingPersons = importPersons(trainingData);
+		System.out.println(" done\n");
+		System.out.print("Populating example sets for each book ..");
 		populateBookLists(trainingPersons, bookA, bookB, bookC);
+		System.out.println(" done\n");
 
-		Concept c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
+		Set<Concept> c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
 				bookC));
-		Concept c_bookB = AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
+		
+/*		Set<Concept> c_bookB = AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
 				bookC));
-		Concept c_bookC = AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
+		Set<Concept> c_bookC = AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
 				bookB));
+*/
 
 		if (proofData == null)
 		{
@@ -96,9 +105,9 @@ public class CA5_KB1
 				break;
 			}
 		}
-		System.out.println("A: " + bookA.size());
-		System.out.println("B: " + bookB.size());
-		System.out.println("C: " + bookC.size());
+		System.out.print(" A: " + bookA.size());
+		System.out.print(" B: " + bookB.size());
+		System.out.print(" C: " + bookC.size());
 	}
 
 	/**

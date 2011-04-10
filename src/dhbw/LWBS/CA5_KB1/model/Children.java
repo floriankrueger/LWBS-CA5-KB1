@@ -2,8 +2,9 @@ package dhbw.LWBS.CA5_KB1.model;
 
 public enum Children
 {
-	NONE(0),	// _
+	NONE(-1),	// _
 	ALL(100),	// *
+	ZERO(0),
 	ONE(1),
 	TWO(2),
 	THREE(3),

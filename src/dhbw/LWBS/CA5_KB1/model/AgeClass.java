@@ -7,7 +7,9 @@ public enum AgeClass
 	F25T35(3), // 25-35
 	F36T49(4), // 36-49
 	F50T65(5), // 50-65
-	O65(6); // >65
+	O65(6), // >65
+	NONE(0), // _
+	ALL(100); // *
 
 	private int id;
 

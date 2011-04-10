@@ -55,7 +55,7 @@ public class Person
 		}
 		catch (NumberFormatException nfe)
 		{
-			// TODO
+			System.err.println("Unknown number in number or children");
 		}
 
 		// create the person

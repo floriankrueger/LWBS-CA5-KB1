@@ -3,15 +3,15 @@ package dhbw.LWBS.CA5_KB1.model;
 public class Person
 {
 
-	private int number;
-	private AgeClass ageClass;
-	private Gender gender;
-	private Married married;
-	private Children children;
-	private Degree degree;
-	private Profession profession;
-	private Income income;
-	private Book book;
+	protected int number;
+	protected AgeClass ageClass;
+	protected Gender gender;
+	protected Married married;
+	protected Children children;
+	protected Degree degree;
+	protected Profession profession;
+	protected Income income;
+	protected Book book;
 
 	/**
 	 * @param number
@@ -134,7 +134,7 @@ public class Person
 		return gender;
 	}
 
-	public Married isMarried()
+	public Married getMarried()
 	{
 		return married;
 	}

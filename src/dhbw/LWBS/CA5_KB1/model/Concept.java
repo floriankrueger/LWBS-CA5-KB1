@@ -68,8 +68,16 @@ public class Concept extends Person
 			System.err.println("setAttribute called with unknown attribute name: " + name);
 	}
 	
-	public boolean equals(Person other)
+	public boolean equals(Object obj)
 	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Person))
+			return false;
+		Person other = (Person) obj;
+		
 		if (ageClass != other.ageClass)
 			return false;
 		if (children != other.children)

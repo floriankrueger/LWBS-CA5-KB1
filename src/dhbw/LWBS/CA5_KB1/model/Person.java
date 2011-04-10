@@ -1,5 +1,7 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+import sun.tools.tree.InstanceOfExpression;
+
 public class Person
 {
 
@@ -73,8 +75,51 @@ public class Person
 	@Override
 	public int hashCode()
 	{
-		int arbitraryPrimeNumber = 31337;
-		return number * arbitraryPrimeNumber;
+		final int prime = 31337;
+		int result = 1;
+		result = prime * result
+				+ ((ageClass == null) ? 0 : ageClass.hashCode());
+		result = prime * result + ((book == null) ? 0 : book.hashCode());
+		result = prime * result + children;
+		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((income == null) ? 0 : income.hashCode());
+		result = prime * result + (married ? 1231 : 1237);
+		result = prime * result + number;
+		result = prime * result
+				+ ((profession == null) ? 0 : profession.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Person))
+			return false;
+		Person other = (Person) obj;
+		if (number != other.number)
+			return false;
+		if (ageClass != other.ageClass)
+			return false;
+		if (book != other.book)
+			return false;
+		if (children != other.children)
+			return false;
+		if (degree != other.degree)
+			return false;
+		if (gender != other.gender)
+			return false;
+		if (income != other.income)
+			return false;
+		if (married != other.married)
+			return false;
+		if (profession != other.profession)
+			return false;
+		return true;
 	}
 
 	// GETTER&SETTER

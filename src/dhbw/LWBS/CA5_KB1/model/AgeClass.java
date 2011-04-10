@@ -8,10 +8,10 @@ public enum AgeClass
 	F36T49(4, "36-49"),
 	F50T65(5, "50-65"),
 	O65(6, ">65"),
-	NONE(0, "_"),
+	NONE(0, ""),
 	ALL(100, "*");
 
-	public static String name = "AgeClass";
+	public static String NAME = "AgeClass";
 	private int id;
 	private String token;
 

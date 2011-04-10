@@ -16,8 +16,7 @@ public class Person
 	protected Income income;
 	protected Book book;
 	
-	@SuppressWarnings("rawtypes")
-	protected Map<Class,Integer> attributes;
+	protected Map<String,Integer> attributes;
 
 	/**
 	 * @param number
@@ -48,17 +47,16 @@ public class Person
 		initHashMap();
 	}
 
-	@SuppressWarnings("rawtypes")
 	private void initHashMap()
 	{
-		this.attributes = new HashMap<Class,Integer>();
-		this.attributes.put(AgeClass.class, ageClass.getId());
-		this.attributes.put(Gender.class, gender.getId());
-		this.attributes.put(Married.class, married.getId());
-		this.attributes.put(Children.class, children.getId());
-		this.attributes.put(Degree.class, degree.getId());
-		this.attributes.put(Profession.class, profession.getId());
-		this.attributes.put(Income.class, income.getId());
+		this.attributes = new HashMap<String,Integer>();
+		this.attributes.put(AgeClass.NAME, ageClass.getId());
+		this.attributes.put(Gender.NAME, gender.getId());
+		this.attributes.put(Married.NAME, married.getId());
+		this.attributes.put(Children.NAME, children.getId());
+		this.attributes.put(Degree.NAME, degree.getId());
+		this.attributes.put(Profession.NAME, profession.getId());
+		this.attributes.put(Income.NAME, income.getId());
 	}
 
 	public Person(String[] data)
@@ -79,17 +77,15 @@ public class Person
 
 		// create the person
 		this.number = number;
-		this.ageClass = getAgeClassForString(data[1]);
-		this.gender = getGenderForString(data[2]);
-		this.married = getMarriedForString(data[3]);
-		this.children = getChildrenForString(data[4]);
-		this.degree = getDegreeForString(data[5]);
-		this.profession = getProfessionForString(data[6]);
-		this.income = getIncomeForString(data[7]);
-		this.book = getBookForString(data[8]);
+		this.ageClass = AgeClass.fromString(data[1]);
+		this.gender = Gender.fromString(data[2]);
+		this.married = Married.fromString(data[3]);
+		this.children = Children.fromString(data[4]);
+		this.degree = Degree.fromString(data[5]);
+		this.profession = Profession.fromString(data[6]);
+		this.income = Income.fromString(data[7]);
+		this.book = Book.fromString(data[8]);
 	}
-
-	
 	
 	@Override
 	public int hashCode()
@@ -201,8 +197,7 @@ public class Person
 	/**
 	 * @return the attributes
 	 */
-	@SuppressWarnings("rawtypes")
-	public Map<Class, Integer> getAttributes()
+	public Map<String, Integer> getAttributes()
 	{
 		return attributes;
 	}

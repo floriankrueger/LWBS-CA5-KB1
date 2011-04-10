@@ -4,7 +4,7 @@ public enum Profession
 {
 	ANGESTELLTER(1, "Angestellter"),
 	ARBEITER(2, "Arbeiter"),
-	ARBEITSLOS(3, "Arbeitlos"),
+	ARBEITSLOS(3, "Arbeitslos"),
 	FUEHRUNGSKRAFT(4, "Fuehrungskraft"),
 	HAUSFRAU(5, "Hausfrau"),
 	LEHRER(6, "Lehrer"),

@@ -1,5 +1,8 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Person
 {
 
@@ -12,6 +15,9 @@ public class Person
 	protected Profession profession;
 	protected Income income;
 	protected Book book;
+	
+	@SuppressWarnings("rawtypes")
+	protected Map<Class,Integer> attributes;
 
 	/**
 	 * @param number
@@ -38,6 +44,21 @@ public class Person
 		this.profession = profession;
 		this.income = income;
 		this.book = book;
+		
+		initHashMap();
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void initHashMap()
+	{
+		this.attributes = new HashMap<Class,Integer>();
+		this.attributes.put(AgeClass.class, ageClass.getId());
+		this.attributes.put(Gender.class, gender.getId());
+		this.attributes.put(Married.class, married.getId());
+		this.attributes.put(Children.class, children.getId());
+		this.attributes.put(Degree.class, degree.getId());
+		this.attributes.put(Profession.class, profession.getId());
+		this.attributes.put(Income.class, income.getId());
 	}
 
 	public Person(String[] data)
@@ -68,6 +89,8 @@ public class Person
 		this.book = getBookForString(data[8]);
 	}
 
+	
+	
 	@Override
 	public int hashCode()
 	{
@@ -117,6 +140,17 @@ public class Person
 			return false;
 		return true;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toConceptString()
+	{
+		return "(ageClass=" + ageClass + ", gender=" + gender
+				+ ", married=" + married + ", children=" + children
+				+ ", degree=" + degree + ", profession=" + profession
+				+ ", income=" + income + ")";
+	}
 
 	// GETTER&SETTER
 	public int getNumber()
@@ -162,6 +196,15 @@ public class Person
 	public Book getBook()
 	{
 		return book;
+	}
+
+	/**
+	 * @return the attributes
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map<Class, Integer> getAttributes()
+	{
+		return attributes;
 	}
 
 	// ENUM UTILS

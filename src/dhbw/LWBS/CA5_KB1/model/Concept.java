@@ -78,6 +78,7 @@ public class Concept extends Person
 	public void setAgeClass(AgeClass ageClass)
 	{
 		this.ageClass = ageClass;
+		this.attributes.put(AgeClass.class, this.ageClass.getId());
 	}
 
 	/**
@@ -87,6 +88,7 @@ public class Concept extends Person
 	public void setGender(Gender gender)
 	{
 		this.gender = gender;
+		this.attributes.put(Gender.class, this.gender.getId());
 	}
 
 	/**
@@ -96,6 +98,7 @@ public class Concept extends Person
 	public void setMarried(Married married)
 	{
 		this.married = married;
+		this.attributes.put(Married.class, this.married.getId());
 	}
 
 	/**
@@ -105,6 +108,7 @@ public class Concept extends Person
 	public void setChildren(Children children)
 	{
 		this.children = children;
+		this.attributes.put(Children.class, this.children.getId());
 	}
 
 	/**
@@ -114,6 +118,7 @@ public class Concept extends Person
 	public void setDegree(Degree degree)
 	{
 		this.degree = degree;
+		this.attributes.put(Degree.class, this.degree.getId());
 	}
 
 	/**
@@ -123,6 +128,7 @@ public class Concept extends Person
 	public void setProfession(Profession profession)
 	{
 		this.profession = profession;
+		this.attributes.put(Profession.class, this.profession.getId());
 	}
 
 	/**
@@ -132,5 +138,6 @@ public class Concept extends Person
 	public void setIncome(Income income)
 	{
 		this.income = income;
+		this.attributes.put(Income.class, this.income.getId());
 	}
 }

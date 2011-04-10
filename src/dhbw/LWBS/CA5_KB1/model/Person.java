@@ -1,7 +1,5 @@
 package dhbw.LWBS.CA5_KB1.model;
 
-import sun.tools.tree.InstanceOfExpression;
-
 public class Person
 {
 
@@ -90,7 +88,7 @@ public class Person
 				+ ((profession == null) ? 0 : profession.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{

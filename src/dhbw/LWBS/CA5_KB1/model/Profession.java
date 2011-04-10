@@ -13,7 +13,7 @@ public enum Profession
 	NONE(0, ""),
 	ALL(100, "*");
 
-	private static String NAME = "Profession";
+	public static String NAME = "Profession";
 	private int id;
 	private String token;
 

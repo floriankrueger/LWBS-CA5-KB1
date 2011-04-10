@@ -26,7 +26,7 @@ public enum Children
 	NINETEEN(19, "19"),
 	TWENTY(20, "20");
 	
-	private static String NAME = "Children";
+	public static String NAME = "Children";
 	private int id;
 	private String token;
 	

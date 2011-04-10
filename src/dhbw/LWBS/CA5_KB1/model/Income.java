@@ -11,7 +11,7 @@ public enum Income
 	NONE(0, ""), 
 	ALL(100, "*");
 
-	private static String NAME = "Income";
+	public static String NAME = "Income";
 	private int id;
 	private String token;
 

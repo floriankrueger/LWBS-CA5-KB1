@@ -11,7 +11,7 @@ public enum Degree
 	NONE(0, ""),
 	ALL(100, "*");
 
-	private static String NAME = "Degree";
+	public static String NAME = "Degree";
 	private int id;
 	private String token;
 

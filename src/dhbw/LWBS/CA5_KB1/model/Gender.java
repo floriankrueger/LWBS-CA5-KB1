@@ -7,7 +7,7 @@ public enum Gender
 	NONE(0, ""),
 	ALL(100, "*");
 
-	private static String NAME = "Gender";
+	public static String NAME = "Gender";
 	private int id;
 	private String token;
 

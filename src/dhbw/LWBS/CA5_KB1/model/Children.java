@@ -32,4 +32,9 @@ public enum Children
 	{
 		this.id = id;	
 	}
+	
+	public int getId()
+	{
+		return id;
+	}
 }

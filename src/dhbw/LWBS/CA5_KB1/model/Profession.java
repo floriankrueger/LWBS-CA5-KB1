@@ -59,4 +59,12 @@ public enum Profession
 		System.err.println("Unknown Profession token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

@@ -56,4 +56,12 @@ public enum Income
 		System.err.println("Unknown Income token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

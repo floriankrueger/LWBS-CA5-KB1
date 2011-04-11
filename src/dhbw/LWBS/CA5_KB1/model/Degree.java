@@ -57,4 +57,11 @@ public enum Degree
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

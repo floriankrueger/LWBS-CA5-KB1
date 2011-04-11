@@ -52,4 +52,12 @@ public enum Gender
 		System.err.println("Unknown Gender token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

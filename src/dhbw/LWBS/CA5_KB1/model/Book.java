@@ -55,4 +55,12 @@ public enum Book
 		System.err.println("Unknown Book token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

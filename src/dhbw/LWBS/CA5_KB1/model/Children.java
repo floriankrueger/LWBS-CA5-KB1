@@ -71,4 +71,12 @@ public enum Children
 		System.err.println("Unknown Children token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != -1)
+			return token;
+		else
+			return "_";
+	}
 }

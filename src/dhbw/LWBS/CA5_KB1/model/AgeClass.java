@@ -57,4 +57,12 @@ public enum AgeClass
 		System.err.println("Unknown AgeClass token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

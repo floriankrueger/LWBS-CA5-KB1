@@ -53,4 +53,12 @@ public enum Married
 		System.err.println("Unknown Married token: " + token);
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		if (id != 0)
+			return token;
+		else
+			return "_";
+	}
 }

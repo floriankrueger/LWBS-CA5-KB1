@@ -34,6 +34,13 @@ public class Star
 	
 	public String toString()
 	{
-		return "S: " + specializedConcepts + "\nG: " + generalizedConcepts;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("S:");
+		for (Concept c : specializedConcepts)
+			buffer.append("\t" + c + "\n");
+		buffer.append("G:");
+		for (Concept c : generalizedConcepts)
+			buffer.append("\t" + c + "\n");
+		return buffer.toString();
 	}
 }

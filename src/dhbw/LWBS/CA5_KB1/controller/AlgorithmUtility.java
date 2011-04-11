@@ -24,13 +24,33 @@ import dhbw.LWBS.CA5_KB1.model.Star;
 public class AlgorithmUtility
 {
 	private static final Logger log = Logger.getLogger(AlgorithmUtility.class);
-	
+
+	/**
+	 * The Algorithm starts with a new <code>Set</code> of <code>Concepts</code>
+	 * (also called Hypothesis). After that it starts the iteration over the
+	 * list of <code>positiveExamples</code>. It passes one positive Example
+	 * which is a <code>Person</code> and the list of
+	 * <code>negativeExamples</code> to the method <code>versionSpaceAlgo</code>
+	 * which returns a <code>Star</code>. The generated star together with the
+	 * list of positiveExamples is passed to the method
+	 * <code>bestGeneralization</code> which returns the
+	 * <code>bestConcept</code>. After it is checked whether the
+	 * <code>bestConcept</code> is already contained in the <code>Set</code> of
+	 * <code>Concepts</code> this is returned to the caller of the method.
+	 * 
+	 * @param positiveExamples
+	 *            a list of positive examples of type <code>Person</code>
+	 * @param negativeExamples
+	 *            a list of negative examples of type <code>Person</code>
+	 * @return <code>Set<Concept></code> containing the bestConcept evaluated by
+	 *         the two given lists
+	 */
 	public static Set<Concept> aqAlgo(ArrayList<Person> positiveExamples,
 			ArrayList<Person> negativeExamples)
 	{
 		BasicConfigurator.configure();
 		log.setLevel(Level.DEBUG);
-		
+
 		Set<Concept> k = new HashSet<Concept>();
 		for (Person person : positiveExamples)
 		{
@@ -39,41 +59,58 @@ public class AlgorithmUtility
 			Star s = versionSpaceAlgo(person, negativeExamples);
 			log.debug("[ END ] VERSION SPACE ALGORITHM \n");
 			log.info("\nStar: \n" + s);
-			
+
 			// Calculate the "best" concept contained in the "Star"
 			log.debug("[BEGIN] BEST CONCEPT");
 			Concept bestConcept = bestGeneralization(s, positiveExamples);
 			log.debug("[ END ] BEST CONCEPT");
-			
+
 			// Add the Concept to K if there is no Concept in K that 
 			//  already covers the current Concept
 			log.debug("[BEGIN] ADD IFNOTALREADYCOVERED");
 			addBestConceptIfNotAlreadyCovered(k, bestConcept);
 			log.debug("[ END ] ADD IFNOTALREADYCOVERED");
 		}
-		
+
 		return k;
 	}
 
 	/**
+	 * Checks if a given <code>Concept</code> evaluated by the method
+	 * <code>bestGeneralization</code> is already contained in the given
+	 * <code>Set</code> of <code>Concepts</code>. If it is not contained it is
+	 * added to this <code>Set</code> otherwise nothing happens.
+	 * 
 	 * @param k
+	 *            the given <code>Set</code> of <code>Concepts</code> where to
+	 *            look for and add the <code>bestConcept</code>
 	 * @param bestConcept
+	 *            <code>Concept</code> to be evaluated if contained or not
 	 */
 	private static void addBestConceptIfNotAlreadyCovered(Set<Concept> k,
 			Concept bestConcept)
 	{
 		boolean already_covered = false;
-		
+
 		for (Concept c : k)
 		{
 			if (c.covers(bestConcept))
 				already_covered = true;
 		}
-		
-		if (!already_covered) 
+
+		if (!already_covered)
 			k.add(bestConcept);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param positiveExamples
+	 *            a list of positive examples of type <code>Person</code>
+	 * @param negativeExamples
+	 *            a list of negative examples of type <code>Person</code>
+	 * @return <code>Star</code>
+	 */
 	public static Star versionSpaceAlgo(ArrayList<Person> positiveExamples,
 			ArrayList<Person> negativeExamples)
 	{
@@ -90,31 +127,28 @@ public class AlgorithmUtility
 		g.add(Concept.getMostGeneralizedConcept()); // g = {(*,...,*)}
 
 		log.debug("[BEGIN] POSITIVE EXAMPLES");
-		
+
 		// Positive Examples
 		for (Person a : positiveExamples) // equivalent zu "solange bR != leere Menge" & "waehle a aus bR"
 		{
-			log.debug("> VS <positive examples>: Person "
-					+ a.toConceptString());
+			log.debug("> VS <positive examples>: Person " + a.toConceptString());
 
 			for (Concept c : s) // ersetze all H aus G mit H(a) = 0 usw.
 			{
-				log.trace(">> VS <positive examples>: Concept " + c
-						+ " -> ");
+				log.trace(">> VS <positive examples>: Concept " + c + " -> ");
 				generalize(a, c);
 				log.trace(c);
 			}
 		}
-		
+
 		log.debug("[END] POSITIVE EXAMPLES\n");
 		log.debug("[BEGIN] NEGATIVE EXAMPLES");
-		
+
 		// Negative Examples
 		for (Person a : negativeExamples) // equivalent zu "solange bR != leere Menge" & "waehle a aus bR"
 		{
-			log.debug("> VS <negative examples>: Person "
-					+ a.toConceptString());
-			
+			log.debug("> VS <negative examples>: Person " + a.toConceptString());
+
 			// Loesche alle Konzepte aus S, die gleich a sind
 			deleteEqualConcepts(s, a);
 
@@ -131,29 +165,28 @@ public class AlgorithmUtility
 			// positiven Beispiele!)
 
 			log.trace(">> [BEGIN] specializing");
-			
+
 			Set<Concept> toBeInserted_g = new HashSet<Concept>();
 			Set<Concept> toBeDeleted_g = new HashSet<Concept>();
 
 			log.trace(">>> Iterating over concepts of \"G\"");
-			
+
 			for (Concept cG : g)
 			{
 				log.trace(">>>> VS <concept of g>: " + cG);
-				
+
 				// Wenn das Beispiel a Teilmenge des aktuellen Konzepts cG ist
 				if (cG.covers(a))
 				{
 					log.debug(">>>> " + cG + " covers " + a.toConceptString());
-					
+
 					// von jedem Element aus s muss ein neues Konzept in g (toBeInserted) erstellt werden
 					// bsp.: s={(a,b)} g={(a,*),(*,b)}
 
 					for (String key : a.getAttributes().keySet())
 					{
 						int a_Attribute = a.getAttributes().get(key);
-						int s_Attribute = s.get(0).getAttributes()
-								.get(key);
+						int s_Attribute = s.get(0).getAttributes().get(key);
 
 						if ((a_Attribute != s_Attribute)
 								|| (s_Attribute != 100)) //ALL (*) = 100
@@ -161,33 +194,38 @@ public class AlgorithmUtility
 							Concept c = cG.copy();
 							c.setAttribute(key, s_Attribute);
 							toBeInserted_g.add(c);
-							
-							log.trace(">>>>> created new concept-to-be-inserted: " + c);
+
+							log.trace(">>>>> created new concept-to-be-inserted: "
+									+ c);
 						}
 					}
-					
+
 					// bisherige Konzepte aus g müssen gelöscht werden
 					log.trace(">>>>> " + cG + " has been marked for deletion");
 					toBeDeleted_g.add(cG);
 				}
 				else
 				{
-					log.debug(">>>> " + cG + " does not cover " + a.toConceptString());
+					log.debug(">>>> " + cG + " does not cover "
+							+ a.toConceptString());
 				}
-				
+
 				log.trace(">>>> concepts marked for deletion: " + toBeDeleted_g);
 				log.trace(">>>> concepts created: " + toBeInserted_g);
 
 			}
-			
-			log.trace(">>>> [BEGIN] deletion of marked concepts from \"G\": " + g);
+
+			log.trace(">>>> [BEGIN] deletion of marked concepts from \"G\": "
+					+ g);
 			for (Concept rG : toBeDeleted_g)
 			{
 				g.remove(rG);
 			}
-			log.trace(">>>> [END] deletion of marked concepts from \"G\": " + g + "\n");
+			log.trace(">>>> [END] deletion of marked concepts from \"G\": " + g
+					+ "\n");
 
 			log.trace(">>>> [BEGIN] inserting of new concepts to \"G\": " + g);
+
 			//TODO schöner machen :)
 			nextConcept: for (Concept iC : toBeInserted_g)
 			{
@@ -195,7 +233,8 @@ public class AlgorithmUtility
 				{
 					if (iC.covers(iG))
 					{
-						log.trace(">>>>> " + iC + " covers " + iG + " -> new concept is not added to \"G\"");
+						log.trace(">>>>> " + iC + " covers " + iG
+								+ " -> new concept is not added to \"G\"");
 						continue nextConcept;
 					}
 					else
@@ -203,38 +242,39 @@ public class AlgorithmUtility
 						log.trace(">>>>> " + iC + " does not cover " + iG);
 					}
 				}
-				
+
 				log.trace(">>>>> added " + iC + " to \"G\"");
 				g.add(iC);
 			}
-			log.trace(">>>> [END] inserting of new concepts to \"G\": " + g + "\n");
-			
+			log.trace(">>>> [END] inserting of new concepts to \"G\": " + g
+					+ "\n");
+
 			// Wenn g leer ist, dann ist der Algorithmus fehlgeschlagen
 			if (g.isEmpty())
 			{
 				log.info("> VS algorithm terminated without success because of drained \"G\"");
 				return null;
 			}
-			
-			if(s.equals(g))
+
+			if (s.equals(g))
 			{
 				log.info("> VS algorithm is terminating successfully because of equal \"S\" and \"G\" (concept learned)");
 				return new Star(s, g);
 			}
-			
+
 		}
 		log.trace(">> [END] specializing");
-		
+
 		log.info("> VS algorithm is terminating successfully (no more examples to learn)");
 		return new Star(s, g);
 	}
 
 	/**
-	 * Matches every Concept in the Set with the given Person example and
-	 * removes if they match
+	 * Matches every Concept in the List with the given Person example and
+	 * removes it if they match
 	 * 
 	 * @param s
-	 *            the Set of Concepts which should be cleared from the given
+	 *            the List of Concepts which should be cleared from the given
 	 *            Person example
 	 * @param a
 	 *            the given Person example
@@ -253,6 +293,12 @@ public class AlgorithmUtility
 		log.trace(">> [END] deleting equal concepts");
 	}
 
+	/**
+	 * 
+	 * @param posExample
+	 * @param negExamples
+	 * @return
+	 */
 	private static Star versionSpaceAlgo(Person posExample,
 			ArrayList<Person> negExamples)
 	{
@@ -261,31 +307,53 @@ public class AlgorithmUtility
 		return versionSpaceAlgo(posExamples, negExamples);
 	}
 
-	public static Concept bestGeneralization(Star s, ArrayList<Person> positiveExamples)
+	/**
+	 * First proofs if the given Star contains generalized <code>Concepts</code>
+	 * if not no best <code>Concept</code> can be found and <code>null</code> is
+	 * returned. If this is not the case it is evaluated if each
+	 * <code>Concept</code> of the given <code>Star</code> coveres each positive
+	 * example. A local variable counts the covered examples for one
+	 * <code>Concept</code>. If this number is higher than the one of the
+	 * previous <code>Concept</code> this is now the best <code>Concept</code>.
+	 * The last found <code>Concept</code> with the highest number of covered
+	 * positive examples is returned as best <code>Concept</code>.
+	 * 
+	 * 
+	 * @param s
+	 *            the <code>Star</code> which should be evalutated for the best
+	 *            generalization
+	 * @param positiveExamples
+	 *            the given list with positive examples of type
+	 *            <code>Person</code>
+	 * @return <code>Concept</code> which covers the most positive examples  
+	 */
+	public static Concept bestGeneralization(Star s,
+			ArrayList<Person> positiveExamples)
 	{
 		// check for empty generalized concept set
-		if ( (s.getGeneralizedConcepts() == null) || (s.getGeneralizedConcepts().isEmpty()) )
+		if ((s.getGeneralizedConcepts() == null)
+				|| (s.getGeneralizedConcepts().isEmpty()))
 		{
 			log.info("The given Star does not contain any generalized Concepts so there is no best concept.");
 			return null;
 		}
-		
+
 		// find the concept that matches most of the given positive examples
-		int found = -1;			// number of found matches (has to be initialized with -1 because
-								//  even the first concept that matches 0 examples is the best here
-		Concept best = null; 	// currently best concept
-		
+		int found = -1; // number of found matches (has to be initialized with -1 because
+		//  even the first concept that matches 0 examples is the best here
+		Concept best = null; // currently best concept
+
 		for (Concept c : s.getGeneralizedConcepts())
 		{
 			int found_local = 0; // the matches for this Concept
-			
+
 			// try to match the current concept with every given example
 			for (Person p : positiveExamples)
 			{
 				if (c.covers(p))
 					found_local++;
 			}
-			
+
 			// the concept is better than the last best if the number of found matches is higher
 			if (found_local > found)
 			{
@@ -293,9 +361,9 @@ public class AlgorithmUtility
 				best = c;
 			}
 		}
-		
+
 		log.info("Best concept of current Star:" + best);
-		
+
 		return best;
 	}
 
@@ -306,6 +374,9 @@ public class AlgorithmUtility
 	}
 
 	// HELPER METHODS
+	/**
+	 * 
+	 */
 	private static void generalize(Person p, Concept c)
 	{
 		// generalize ageclass

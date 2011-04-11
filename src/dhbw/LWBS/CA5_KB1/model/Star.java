@@ -32,6 +32,16 @@ public class Star
 		return generalizedConcepts.add(c);
 	}
 	
+	public Set<Concept> getGeneralizedConcepts()
+	{
+		return generalizedConcepts;
+	}
+	
+	public Set<Concept> getSpecializedConcepts()
+	{
+		return specializedConcepts;
+	}
+	
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();

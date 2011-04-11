@@ -9,7 +9,7 @@ public enum Book
 	ALL(100,"*");
 
 	// ENUM CODE
-	private static String NAME = "Book";
+	public static String NAME = "Book";
 	private int id;
 	private String token;
 

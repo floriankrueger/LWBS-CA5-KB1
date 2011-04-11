@@ -34,16 +34,44 @@ public class AlgorithmUtility
 		Set<Concept> k = new HashSet<Concept>();
 		for (Person person : positiveExamples)
 		{
+			// Retrieve a "Star" from the VersionSpace Algorithm
 			log.debug("[BEGIN] VERSION SPACE ALGORITHM \n");
 			Star s = versionSpaceAlgo(person, negativeExamples);
-			log.debug("[END] VERSION SPACE ALGORITHM \n");
+			log.debug("[ END ] VERSION SPACE ALGORITHM \n");
 			log.info("\nStar: \n" + s);
-			// TODO bestGeneralization
-			// TODO c = c geschnitten s
-			// TODO remove all persons from c that are already covered by s
+			
+			// Calculate the "best" concept contained in the "Star"
+			log.debug("[BEGIN] BEST CONCEPT");
+			Concept bestConcept = bestGeneralization(s, positiveExamples);
+			log.debug("[ END ] BEST CONCEPT");
+			
+			// Add the Concept to K if there is no Concept in K that 
+			//  already covers the current Concept
+			log.debug("[BEGIN] ADD IFNOTALREADYCOVERED");
+			addBestConceptIfNotAlreadyCovered(k, bestConcept);
+			log.debug("[ END ] ADD IFNOTALREADYCOVERED");
 		}
-
+		
 		return k;
+	}
+
+	/**
+	 * @param k
+	 * @param bestConcept
+	 */
+	private static void addBestConceptIfNotAlreadyCovered(Set<Concept> k,
+			Concept bestConcept)
+	{
+		boolean already_covered = false;
+		
+		for (Concept c : k)
+		{
+			if (c.covers(bestConcept))
+				already_covered = true;
+		}
+		
+		if (!already_covered) 
+			k.add(bestConcept);
 	}
 
 	public static Star versionSpaceAlgo(ArrayList<Person> positiveExamples,
@@ -116,7 +144,7 @@ public class AlgorithmUtility
 				// Wenn das Beispiel a Teilmenge des aktuellen Konzepts cG ist
 				if (cG.covers(a))
 				{
-					log.trace(">>>> " + cG + " covers " + a.toConceptString());
+					log.debug(">>>> " + cG + " covers " + a.toConceptString());
 					
 					// von jedem Element aus s muss ein neues Konzept in g (toBeInserted) erstellt werden
 					// bsp.: s={(a,b)} g={(a,*),(*,b)}
@@ -144,7 +172,7 @@ public class AlgorithmUtility
 				}
 				else
 				{
-					log.trace(">>>> " + cG + " does not cover " + a.toConceptString());
+					log.debug(">>>> " + cG + " does not cover " + a.toConceptString());
 				}
 				
 				log.trace(">>>> concepts marked for deletion: " + toBeDeleted_g);
@@ -233,9 +261,42 @@ public class AlgorithmUtility
 		return versionSpaceAlgo(posExamples, negExamples);
 	}
 
-	public static void bestGeneralization()
+	public static Concept bestGeneralization(Star s, ArrayList<Person> positiveExamples)
 	{
-		// TODO implement
+		// check for empty generalized concept set
+		if ( (s.getGeneralizedConcepts() == null) || (s.getGeneralizedConcepts().isEmpty()) )
+		{
+			log.info("The given Star does not contain any generalized Concepts so there is no best concept.");
+			return null;
+		}
+		
+		// find the concept that matches most of the given positive examples
+		int found = -1;			// number of found matches (has to be initialized with -1 because
+								//  even the first concept that matches 0 examples is the best here
+		Concept best = null; 	// currently best concept
+		
+		for (Concept c : s.getGeneralizedConcepts())
+		{
+			int found_local = 0; // the matches for this Concept
+			
+			// try to match the current concept with every given example
+			for (Person p : positiveExamples)
+			{
+				if (c.covers(p))
+					found_local++;
+			}
+			
+			// the concept is better than the last best if the number of found matches is higher
+			if (found_local > found)
+			{
+				found = found_local;
+				best = c;
+			}
+		}
+		
+		log.info("Best concept of current Star:" + best);
+		
+		return best;
 	}
 
 	public static Book guessTheBook(Person p)

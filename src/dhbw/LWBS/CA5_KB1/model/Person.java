@@ -144,10 +144,10 @@ public class Person
 	 */
 	public String toConceptString()
 	{
-		return "(ageClass=" + ageClass + ", gender=" + gender
-				+ ", married=" + married + ", children=" + children
-				+ ", degree=" + degree + ", profession=" + profession
-				+ ", income=" + income + ")";
+		return "(" + ageClass + ", " + gender
+				+ ", " + married + ", " + children
+				+ ", " + degree + ", " + profession
+				+ ", " + income + ")";
 	}
 
 	// GETTER&SETTER

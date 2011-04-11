@@ -28,7 +28,7 @@ public class AlgorithmUtility
 			System.out.println("[BEGIN] VERSION SPACE ALGORITHM \n");
 			Star s = versionSpaceAlgo(person, negativeExamples);
 			System.out.println("[END] VERSION SPACE ALGORITHM \n");
-			System.out.println("Star for book A: " + s);
+			System.out.println("Star for book A: \n" + s);
 			// TODO bestGeneralization
 			// TODO c = c geschnitten s
 			// TODO remove all persons from c that are already covered by s
@@ -141,51 +141,53 @@ public class AlgorithmUtility
 				System.out.println(">>>> concepts marked for deletion: " + toBeDeleted_g);
 				System.out.println(">>>> concepts created: " + toBeInserted_g);
 
-				System.out.println(">>>> [BEGIN] deletion of marked concepts from \"G\": " + g);
-				for (Concept rG : toBeDeleted_g)
-				{
-					g.remove(rG);
-				}
-				System.out.println(">>>> [END] deletion of marked concepts from \"G\": " + g + "\n");
-
-				System.out.println(">>>> [BEGIN] inserting of new concepts to \"G\": " + g);
-				//TODO schöner machen :)
-				nextConcept: for (Concept iC : toBeInserted_g)
-				{
-					for (Concept iG : g)
-					{
-						if (iC.covers(iG))
-						{
-							System.out.println(">>>>> " + iC + " covers " + iG + " -> new concept is not added to \"G\"");
-							continue nextConcept;
-						}
-						else
-						{
-							System.out.println(">>>>> " + iC + " does not cover " + iG);
-						}
-					}
-					
-					System.out.println(">>>>> added " + iC + " to \"G\"");
-					g.add(iC);
-				}
-				System.out.println(">>>> [END] inserting of new concepts to \"G\": " + g + "\n");
-				
-				// Wenn g leer ist, dann ist der Algorithmus fehlgeschlagen
-				if (g.isEmpty())
-				{
-					System.out.println("> VS algorithm terminated without success because of drained \"G\"");
-					return null;
-				}
 			}
 			
-			System.out.println(">> [END] specializing");
+			System.out.println(">>>> [BEGIN] deletion of marked concepts from \"G\": " + g);
+			for (Concept rG : toBeDeleted_g)
+			{
+				g.remove(rG);
+			}
+			System.out.println(">>>> [END] deletion of marked concepts from \"G\": " + g + "\n");
+
+			System.out.println(">>>> [BEGIN] inserting of new concepts to \"G\": " + g);
+			//TODO schöner machen :)
+			nextConcept: for (Concept iC : toBeInserted_g)
+			{
+				for (Concept iG : g)
+				{
+					if (iC.covers(iG))
+					{
+						System.out.println(">>>>> " + iC + " covers " + iG + " -> new concept is not added to \"G\"");
+						continue nextConcept;
+					}
+					else
+					{
+						System.out.println(">>>>> " + iC + " does not cover " + iG);
+					}
+				}
+				
+				System.out.println(">>>>> added " + iC + " to \"G\"");
+				g.add(iC);
+			}
+			System.out.println(">>>> [END] inserting of new concepts to \"G\": " + g + "\n");
+			
+			// Wenn g leer ist, dann ist der Algorithmus fehlgeschlagen
+			if (g.isEmpty())
+			{
+				System.out.println("> VS algorithm terminated without success because of drained \"G\"");
+				return null;
+			}
 			
 			if(s.equals(g))
 			{
 				System.out.println("> VS algorithm is terminating successfully because of equal \"S\" and \"G\" (concept learned)");
 				return new Star(s, g);
 			}
+			
 		}
+		System.out.println(">> [END] specializing");
+		
 		System.out.println("> VS algorithm is terminating successfully (no more examples to learn)");
 		return new Star(s, g);
 	}

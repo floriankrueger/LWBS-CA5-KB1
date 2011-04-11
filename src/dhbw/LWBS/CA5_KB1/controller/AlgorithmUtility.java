@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import dhbw.LWBS.CA5_KB1.model.AgeClass;
 import dhbw.LWBS.CA5_KB1.model.Book;
 import dhbw.LWBS.CA5_KB1.model.Children;
@@ -19,16 +23,21 @@ import dhbw.LWBS.CA5_KB1.model.Star;
 
 public class AlgorithmUtility
 {
+	private static final Logger log = Logger.getLogger(AlgorithmUtility.class);
+	
 	public static Set<Concept> aqAlgo(ArrayList<Person> positiveExamples,
 			ArrayList<Person> negativeExamples)
 	{
+		BasicConfigurator.configure();
+		log.setLevel(Level.DEBUG);
+		
 		Set<Concept> k = new HashSet<Concept>();
 		for (Person person : positiveExamples)
 		{
-			System.out.println("[BEGIN] VERSION SPACE ALGORITHM \n");
+			log.debug("[BEGIN] VERSION SPACE ALGORITHM \n");
 			Star s = versionSpaceAlgo(person, negativeExamples);
-			System.out.println("[END] VERSION SPACE ALGORITHM \n");
-			System.out.println("Star for book A: \n" + s);
+			log.debug("[END] VERSION SPACE ALGORITHM \n");
+			log.info("\nStar: \n" + s);
 			// TODO bestGeneralization
 			// TODO c = c geschnitten s
 			// TODO remove all persons from c that are already covered by s
@@ -52,30 +61,30 @@ public class AlgorithmUtility
 		s.add(Concept.getMostSpecializedConcept()); // s = {(_,...,_)}
 		g.add(Concept.getMostGeneralizedConcept()); // g = {(*,...,*)}
 
-		System.out.println("[BEGIN] POSITIVE EXAMPLES");
+		log.debug("[BEGIN] POSITIVE EXAMPLES");
 		
 		// Positive Examples
 		for (Person a : positiveExamples) // equivalent zu "solange bR != leere Menge" & "waehle a aus bR"
 		{
-			System.out.println("> VS <positive examples>: Person "
+			log.debug("> VS <positive examples>: Person "
 					+ a.toConceptString());
 
 			for (Concept c : s) // ersetze all H aus G mit H(a) = 0 usw.
 			{
-				System.out.print(">> VS <positive examples>: Concept " + c
+				log.trace(">> VS <positive examples>: Concept " + c
 						+ " -> ");
 				generalize(a, c);
-				System.out.println(c);
+				log.trace(c);
 			}
 		}
 		
-		System.out.println("[END] POSITIVE EXAMPLES\n");
-		System.out.println("[BEGIN] NEGATIVE EXAMPLES");
+		log.debug("[END] POSITIVE EXAMPLES\n");
+		log.debug("[BEGIN] NEGATIVE EXAMPLES");
 		
 		// Negative Examples
 		for (Person a : negativeExamples) // equivalent zu "solange bR != leere Menge" & "waehle a aus bR"
 		{
-			System.out.println("> VS <negative examples>: Person "
+			log.debug("> VS <negative examples>: Person "
 					+ a.toConceptString());
 			
 			// Loesche alle Konzepte aus S, die gleich a sind
@@ -85,7 +94,7 @@ public class AlgorithmUtility
 			// und der Algorithmus ist fehlgeschlagen
 			if (s.isEmpty())
 			{
-				System.out.println("> VS algorithm terminated without success because of drained \"S\"");
+				log.info("> VS algorithm terminated without success because of drained \"S\"");
 				return null;
 			}
 
@@ -93,21 +102,21 @@ public class AlgorithmUtility
 			// Spezialisierung von H, die a nicht enhaelt (jedoch alle bisher vorgelegten
 			// positiven Beispiele!)
 
-			System.out.println(">> [BEGIN] specializing");
+			log.trace(">> [BEGIN] specializing");
 			
 			Set<Concept> toBeInserted_g = new HashSet<Concept>();
 			Set<Concept> toBeDeleted_g = new HashSet<Concept>();
 
-			System.out.println(">>> Iterating over concepts of \"G\"");
+			log.trace(">>> Iterating over concepts of \"G\"");
 			
 			for (Concept cG : g)
 			{
-				System.out.println(">>>> VS <concept of g>: " + cG);
+				log.trace(">>>> VS <concept of g>: " + cG);
 				
 				// Wenn das Beispiel a Teilmenge des aktuellen Konzepts cG ist
 				if (cG.covers(a))
 				{
-					System.out.println(">>>> " + cG + " covers " + a.toConceptString());
+					log.trace(">>>> " + cG + " covers " + a.toConceptString());
 					
 					// von jedem Element aus s muss ein neues Konzept in g (toBeInserted) erstellt werden
 					// bsp.: s={(a,b)} g={(a,*),(*,b)}
@@ -125,32 +134,32 @@ public class AlgorithmUtility
 							c.setAttribute(key, s_Attribute);
 							toBeInserted_g.add(c);
 							
-							System.out.println(">>>>> created new concept-to-be-inserted: " + c);
+							log.trace(">>>>> created new concept-to-be-inserted: " + c);
 						}
 					}
 					
 					// bisherige Konzepte aus g müssen gelöscht werden
-					System.out.println(">>>>> " + cG + " has been marked for deletion");
+					log.trace(">>>>> " + cG + " has been marked for deletion");
 					toBeDeleted_g.add(cG);
 				}
 				else
 				{
-					System.out.println(">>>> " + cG + " does not cover " + a.toConceptString());
+					log.trace(">>>> " + cG + " does not cover " + a.toConceptString());
 				}
 				
-				System.out.println(">>>> concepts marked for deletion: " + toBeDeleted_g);
-				System.out.println(">>>> concepts created: " + toBeInserted_g);
+				log.trace(">>>> concepts marked for deletion: " + toBeDeleted_g);
+				log.trace(">>>> concepts created: " + toBeInserted_g);
 
 			}
 			
-			System.out.println(">>>> [BEGIN] deletion of marked concepts from \"G\": " + g);
+			log.trace(">>>> [BEGIN] deletion of marked concepts from \"G\": " + g);
 			for (Concept rG : toBeDeleted_g)
 			{
 				g.remove(rG);
 			}
-			System.out.println(">>>> [END] deletion of marked concepts from \"G\": " + g + "\n");
+			log.trace(">>>> [END] deletion of marked concepts from \"G\": " + g + "\n");
 
-			System.out.println(">>>> [BEGIN] inserting of new concepts to \"G\": " + g);
+			log.trace(">>>> [BEGIN] inserting of new concepts to \"G\": " + g);
 			//TODO schöner machen :)
 			nextConcept: for (Concept iC : toBeInserted_g)
 			{
@@ -158,37 +167,37 @@ public class AlgorithmUtility
 				{
 					if (iC.covers(iG))
 					{
-						System.out.println(">>>>> " + iC + " covers " + iG + " -> new concept is not added to \"G\"");
+						log.trace(">>>>> " + iC + " covers " + iG + " -> new concept is not added to \"G\"");
 						continue nextConcept;
 					}
 					else
 					{
-						System.out.println(">>>>> " + iC + " does not cover " + iG);
+						log.trace(">>>>> " + iC + " does not cover " + iG);
 					}
 				}
 				
-				System.out.println(">>>>> added " + iC + " to \"G\"");
+				log.trace(">>>>> added " + iC + " to \"G\"");
 				g.add(iC);
 			}
-			System.out.println(">>>> [END] inserting of new concepts to \"G\": " + g + "\n");
+			log.trace(">>>> [END] inserting of new concepts to \"G\": " + g + "\n");
 			
 			// Wenn g leer ist, dann ist der Algorithmus fehlgeschlagen
 			if (g.isEmpty())
 			{
-				System.out.println("> VS algorithm terminated without success because of drained \"G\"");
+				log.info("> VS algorithm terminated without success because of drained \"G\"");
 				return null;
 			}
 			
 			if(s.equals(g))
 			{
-				System.out.println("> VS algorithm is terminating successfully because of equal \"S\" and \"G\" (concept learned)");
+				log.info("> VS algorithm is terminating successfully because of equal \"S\" and \"G\" (concept learned)");
 				return new Star(s, g);
 			}
 			
 		}
-		System.out.println(">> [END] specializing");
+		log.trace(">> [END] specializing");
 		
-		System.out.println("> VS algorithm is terminating successfully (no more examples to learn)");
+		log.info("> VS algorithm is terminating successfully (no more examples to learn)");
 		return new Star(s, g);
 	}
 
@@ -204,16 +213,16 @@ public class AlgorithmUtility
 	 */
 	private static void deleteEqualConcepts(List<Concept> s, Person a)
 	{
-		System.out.println(">> [BEGIN] deleting equal concepts");
+		log.trace(">> [BEGIN] deleting equal concepts");
 		for (Concept cS : s)
 		{
 			if (cS.equals(a))
 			{
 				s.remove(cS);
-				System.out.println(">>> removing Concept " + cS);
+				log.trace(">>> removing Concept " + cS);
 			}
 		}
-		System.out.println(">> [END] deleting equal concepts");
+		log.trace(">> [END] deleting equal concepts");
 	}
 
 	private static Star versionSpaceAlgo(Person posExample,

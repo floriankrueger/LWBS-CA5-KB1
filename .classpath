@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="commons-collections-3.2.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

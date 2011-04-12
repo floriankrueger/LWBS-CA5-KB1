@@ -25,7 +25,7 @@ import dhbw.LWBS.CA5_KB1.model.Star;
 /**
  * TODO class doc
  * 
- *
+ * 
  */
 public class AlgorithmUtility
 {
@@ -108,13 +108,43 @@ public class AlgorithmUtility
 	}
 
 	/**
-	 * TODO versionSpaceAlgo
+	 * Initialized two lists S and G. S contains underscores meaning no
+	 * attribute of an example is wanted, G contains stars meaning each
+	 * attribute of an example is wanted. As long as the given list of positive
+	 * examples of type <code>Person</code> contains examples one example after
+	 * another is picked out and list s is generalized. After s is finished it
+	 * iterates over the list of negative examples and every example that is
+	 * contained in S will be deleted from S. If S is empty the algorithm fails,
+	 * otherwise the method goes on. Now G is specialized
+	 * <ol>
+	 * <li>Check if the current <code>Concept</code> of g covers the current
+	 * negative example</li>
+	 * <ul>
+	 * <li>If yes, out of each attribute in S a more specialized concept in G
+	 * must be generated which replaces the old concept</li>
+	 * <li>If not, nothing happens</li>
+	 * </ul>
+	 * <li>Check if G gone empty</li>
+	 * <ul>
+	 * <li>If yes, the algorithm has failed</li>
+	 * <li>If not, program goes on</li>
+	 * </ul>
+	 * <li>Check if S and G are already the same</li>
+	 * <ul>
+	 * <li>If yes, a <code>Star></code> containing S and G is returned</li>
+	 * <li>If not, specializing of G goes on with the next negative example</li>
+	 * </ul>
+	 * 
+	 * If there are no more negative examples the method returns a Star which
+	 * contains S and G <code>Concepts</code>.
 	 * 
 	 * @param positiveExamples
 	 *            a list of positive examples of type <code>Person</code>
 	 * @param negativeExamples
 	 *            a list of negative examples of type <code>Person</code>
-	 * @return <code>Star</code>
+	 * @return <code>Star</code> containing specialized and generalized
+	 *         <code>Concepts</code>, <code>null</code> if list of most
+	 *         specified or most generalized examples runs empty
 	 */
 	public static Star versionSpaceAlgo(ArrayList<Person> positiveExamples,
 			ArrayList<Person> negativeExamples)
@@ -123,8 +153,10 @@ public class AlgorithmUtility
 		List<Concept> s = new ArrayList<Concept>(); // Menge der speziellsten Konzepte
 		List<Concept> g = new ArrayList<Concept>(); // Menge der generellsten Konzepte
 		// Menge der noch nicht vorgelegten Beispiele entspricht positiveExamples & negative Examples
-		// Menge der bereits vorgelegten Beispiele muss nicht gefuehrt werden, da die for each 
-		//  Schleife jedes Beispiel nur einmal verwendet
+		/*
+		 * Menge der bereits vorgelegten Beispiele muss nicht gefuehrt werden,
+		 * da die for each Schleife jedes Beispiel nur einmal verwendet
+		 */
 
 		// Algorithm
 
@@ -185,7 +217,7 @@ public class AlgorithmUtility
 				{
 					log.debug(">>>> " + cG + " covers " + a.toConceptString());
 
-					// von jedem Element aus s muss ein neues Konzept in g (toBeInserted) erstellt werden
+					// von jedem Attribut aus s muss ein neues Konzept in g (toBeInserted) erstellt werden
 					// bsp.: s={(a,b)} g={(a,*),(*,b)}
 
 					for (String key : a.getAttributes().keySet())
@@ -309,7 +341,8 @@ public class AlgorithmUtility
 	 * @param negExamples
 	 *            a list of negative examples of type <code>Person</code>
 	 * @return <code>Star</code> containing specialized and generalized
-	 *         <code>Concepts</code>
+	 *         <code>Concepts</code>, <code>null</code> if list of most
+	 *         specified or most generalized examples runs empty
 	 */
 	private static Star versionSpaceAlgo(Person posExample,
 			ArrayList<Person> negExamples)
@@ -380,76 +413,86 @@ public class AlgorithmUtility
 	}
 
 	/**
-	 * TODO guessTheBook
+	 * Calculates the possibility which <code>Book</code> the given
+	 * <code>Person</code> will pick according to the learned
+	 * <code>Concepts</code>.
 	 * 
 	 * @param p
+	 *            <code>Person</code> to be analysed
 	 * @param booksConcepts
-	 * @return
+	 *            all books and their learned <code>Concepts</code>
+	 * @return a list of possible books
 	 */
-	public static List<Book> guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
-	{	
+	public static List<Book> guessTheBook(Person p,
+			HashMap<Book, Set<Concept>> booksConcepts)
+	{
 		log.setLevel(Level.WARN);
 		log.info("Guessing Book for Person: " + p.toConceptString());
-		
-		int conceptsTotal = 0;	// holds the total number of all concepts for all books
-		HashMap<Book, Double> matches = new HashMap<Book, Double>();	// holds the number of matches for each book
+
+		int conceptsTotal = 0; // holds the total number of all concepts for all books
+		HashMap<Book, Double> matches = new HashMap<Book, Double>(); // holds the number of matches for each book
 		List<Book> possibleBooks = new ArrayList<Book>(); // holds all books that match more than 0.0%
-		
+
 		// calculate the possibilities
 		for (Book b : booksConcepts.keySet())
 		{
 			// add the number of concepts of the current book to the 
 			//  total number of concepts
 			conceptsTotal += booksConcepts.get(b).size();
-			
+
 			// retrieve the number of matches for the current book
 			double matchesForBook = getPossibleMatches(p, booksConcepts.get(b));
-			
+
 			// calculate the LOCAL percental match
 			double matchPercent = calculatePercentage(matchesForBook, booksConcepts.get(b).size());
 			log.debug("Book \"" + b + "\": " + matchPercent + "%");
-			
+
 			if (matchPercent > 0.0)
 			{
 				// add the matching book to the return list
 				possibleBooks.add(b);
 			}
-			
+
 			matches.put(b, matchPercent);
 		}
-		
-		double maxMatches = -1;	// holds the maximum number of matches found in the map
-		Book currentMostPossibleBook = null;	// the book to be returned 
-		
+
+		double maxMatches = -1; // holds the maximum number of matches found in the map
+		Book currentMostPossibleBook = null; // the book to be returned 
+
 		// find the highest match
 		for (Book b : matches.keySet())
 		{
 			// if the number of matches for the current book is larger
 			//  than the current number of matches, it is the currently 
 			//  most possible book to be taken
-			if(matches.get(b) > maxMatches)
+			if (matches.get(b) > maxMatches)
 			{
-				log.trace("max " + maxMatches + " < " + matches.get(b) + " (was " + currentMostPossibleBook + ")");
+				log.trace("max " + maxMatches + " < " + matches.get(b)
+						+ " (was " + currentMostPossibleBook + ")");
 				maxMatches = matches.get(b);
 				currentMostPossibleBook = b;
-				log.trace("max changed to :" + maxMatches + "(is now " + currentMostPossibleBook + ")");
+				log.trace("max changed to :" + maxMatches + "(is now "
+						+ currentMostPossibleBook + ")");
 			}
 		}
-		
+
 		double matchPercent = calculatePercentage(maxMatches, conceptsTotal);
-		log.info("Book \"" + currentMostPossibleBook + "\" is the most " +
-				"possible choice for Person " + p + " with an overall match of " +
-				matchPercent + "%.");
-			
+		log.info("Book \"" + currentMostPossibleBook + "\" is the most "
+				+ "possible choice for Person " + p
+				+ " with an overall match of " + matchPercent + "%.");
+
 		return possibleBooks;
 	}
-	
+
 	/**
-	 * TODO getPossibleMatches
+	 * Returns the number of matches between the given <code>Person</code> and
+	 * the given book <code>Concepts</code>
 	 * 
 	 * @param p
+	 *            example of type <code>Person</code> that has to be matched
 	 * @param bookConcepts
-	 * @return
+	 *            containing all concept of one book
+	 * @return number of matches
 	 */
 	private static int getPossibleMatches(Person p, Set<Concept> bookConcepts)
 	{
@@ -464,7 +507,18 @@ public class AlgorithmUtility
 
 	// HELPER METHODS
 	/**
-	 * TODO generalize
+	 * Compares all attributes of the given <code>Concept</code> to their
+	 * according enum types. If an attribute wasn't spezialised before the
+	 * compatible attribute of the given <code>Person</code> is set in the
+	 * <code>Concept</code>. If a <code>Person</code>'s attribute is unequal to
+	 * the compatible <code>Concept</code>'s attribute this is set to a star
+	 * meaning that it is generalized.
+	 * 
+	 * @param p
+	 *            <code>Person</code> which is compared to the
+	 *            <code>Concept</code>
+	 * @param c
+	 *            <code>Concept</code> where to set values
 	 */
 	private static void generalize(Person p, Concept c)
 	{
@@ -510,7 +564,18 @@ public class AlgorithmUtility
 		else if (p.getIncome() != c.getIncome())
 			c.setIncome(Income.ALL);
 	}
-	
+
+	/**
+	 * Calculated the percentage of matches with the calculated number of
+	 * <code>getPossibleMatches</code> and the total number of
+	 * <code>Concepts</code>
+	 * 
+	 * @param matchesForBook
+	 *            number of matches for a book
+	 * @param total
+	 *            number of <code>Concepts</code>
+	 * @return matches for one book in percentage
+	 */
 	private static double calculatePercentage(double matchesForBook, int total)
 	{
 		if (total == 0)

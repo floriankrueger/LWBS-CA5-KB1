@@ -21,6 +21,11 @@ import dhbw.LWBS.CA5_KB1.model.Person;
 import dhbw.LWBS.CA5_KB1.model.Profession;
 import dhbw.LWBS.CA5_KB1.model.Star;
 
+/**
+ * TODO class doc
+ * 
+ *
+ */
 public class AlgorithmUtility
 {
 	private static final Logger log = Logger.getLogger(AlgorithmUtility.class);
@@ -103,7 +108,7 @@ public class AlgorithmUtility
 	}
 
 	/**
-	 * 
+	 * TODO versionSpaceAlgo
 	 * 
 	 * @param positiveExamples
 	 *            a list of positive examples of type <code>Person</code>
@@ -294,10 +299,17 @@ public class AlgorithmUtility
 	}
 
 	/**
+	 * One positive example of type <code>Person</code> which is added to a list
+	 * and a list of negative examples are passed on to this overloaded method.
+	 * It then returns a Star which contains specialized and generalized
+	 * <code>Concepts</code>.
 	 * 
 	 * @param posExample
+	 *            a list of positive examples of type <code>Person</code>
 	 * @param negExamples
-	 * @return
+	 *            a list of negative examples of type <code>Person</code>
+	 * @return <code>Star</code> containing specialized and generalized
+	 *         <code>Concepts</code>
 	 */
 	private static Star versionSpaceAlgo(Person posExample,
 			ArrayList<Person> negExamples)
@@ -325,7 +337,7 @@ public class AlgorithmUtility
 	 * @param positiveExamples
 	 *            the given list with positive examples of type
 	 *            <code>Person</code>
-	 * @return <code>Concept</code> which covers the most positive examples  
+	 * @return <code>Concept</code> which covers the most positive examples
 	 */
 	public static Concept bestGeneralization(Star s,
 			ArrayList<Person> positiveExamples)
@@ -367,15 +379,21 @@ public class AlgorithmUtility
 		return best;
 	}
 
+	/**
+	 * TODO guessTheBook
+	 * 
+	 * @param p
+	 * @return
+	 */
 	public static Book guessTheBook(Person p)
 	{
-		// TODO implement
+		// TODO implement guessTheBook
 		return null;
 	}
 
 	// HELPER METHODS
 	/**
-	 * 
+	 * TODO generalize
 	 */
 	private static void generalize(Person p, Concept c)
 	{

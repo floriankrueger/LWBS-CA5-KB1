@@ -370,7 +370,8 @@ public class AlgorithmUtility
 	 * @param positiveExamples
 	 *            the given list with positive examples of type
 	 *            <code>Person</code>
-	 * @return <code>Concept</code> which covers the most positive examples
+	 * @return <code>Concept</code> which covers the most positive examples,
+	 *         <code>null</code> if the given Star has no generalized concepts
 	 */
 	public static Concept bestGeneralization(Star s,
 			ArrayList<Person> positiveExamples)

@@ -1,8 +1,7 @@
 package dhbw.LWBS.CA5_KB1.model;
 
 /**
- * TODO enum doc
- * 
+ * Contains all types of <code>Married</code> that can occur in the file that is read in.
  *
  */
 public enum Married
@@ -16,7 +15,12 @@ public enum Married
 	private int id;
 	private String token;
 
-	private Married(int id, String token)
+	/**
+	 * Enum constructor
+	 * @param id
+	 * @param token
+	 */
+	Married(int id, String token)
 	{
 		this.id = id;
 		this.token = token;
@@ -27,6 +31,11 @@ public enum Married
 		return id;
 	}
 	
+	/**
+	 * Returns the <code>Married</code> constant that matches with the given id.
+	 * @param id that is searched for
+	 * @return <code>Married</code> constant
+	 */
 	public static Married fromInteger(Integer id)
 	{
 		if (id != null)
@@ -43,6 +52,11 @@ public enum Married
 		return null;
 	}
 	
+	/**
+	 * Returns the <code>Married</code> constant that matches with the given token.
+	 * @param token that is searched for
+	 * @return <code>Married</code> constant
+	 */
 	public static Married fromString(String token)
 	{
 		if (token != null)

@@ -94,10 +94,12 @@ public class CA5_KB1
 			System.out.println("No proof data given, continuing to interactive mode");
 
 			ConceptConsole c = new ConceptConsole();
-
-			Person person = c.readConcept();
-
-			getResultForTestData(booksConcepts, person);
+			
+			do 
+			{
+				Person person = c.readConcept();
+				getResultForTestData(booksConcepts, person);	
+			} while (c.continueTesting());
 		}
 	}
 

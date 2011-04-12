@@ -41,6 +41,14 @@ public class ConceptConsole
 		
 		System.out.println();
 		
+		return c;
+	}
+
+	/**
+	 * 
+	 */
+	public boolean continueTesting()
+	{
 		// prompt to continue reading
 		System.out.print("Do you want to test more persons? (y/n) :");
 		
@@ -54,7 +62,7 @@ public class ConceptConsole
 			System.err.println("IO error, please try again.");
 		}
 		
-		return c;
+		return stillReading;
 	}
 
 	/**

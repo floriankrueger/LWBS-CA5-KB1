@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 
 import dhbw.LWBS.CA5_KB1.model.Book;
 import dhbw.LWBS.CA5_KB1.model.Concept;
@@ -18,7 +18,7 @@ import dhbw.LWBS.CA5_KB1.model.Person;
  * 
  */
 public class CA5_KB1
-{
+{	
 	/**
 	 * TODO main
 	 * 
@@ -29,8 +29,9 @@ public class CA5_KB1
 	 */
 	public static void main(String[] args)
 	{
-		BasicConfigurator.configure();
-
+		// configure log4j
+		PropertyConfigurator.configure("log4j.properties");
+		
 		String trainingData = "gruppe_ca5_kb1.csv";
 		String proofData = null;
 

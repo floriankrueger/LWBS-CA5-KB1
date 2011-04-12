@@ -2,8 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>Degree</code> that can occur in the file that is read in.
- * 
- *
  */
 public enum Degree
 {
@@ -16,6 +14,7 @@ public enum Degree
 	NONE(0, ""),
 	ALL(100, "*");
 
+	//ENUM CODE
 	public static String NAME = "Degree";
 	private int id;
 	private String token;
@@ -39,7 +38,7 @@ public enum Degree
 	/**
 	 * Returns the <code>Degree</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>Degree</code> constant
+	 * @return <code>Degree</code> constant, <code>null</code> if id is not contained
 	 */
 	public static Degree fromInteger(Integer id)
 	{
@@ -60,7 +59,7 @@ public enum Degree
 	/**
 	 * Returns the <code>Degree</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>Degree</code> constant
+	 * @return <code>Degree</code> constant, <code>null</code> if token is not contained
 	 */
 	public static Degree fromString(String token)
 	{

@@ -2,7 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>AgeClasses</code> that can occur in the file that is read in.
- *
  */
 public enum AgeClass
 {
@@ -39,7 +38,7 @@ public enum AgeClass
 	/**
 	 * Returns the <code>AgeClass</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>AgeClass</code> constant
+	 * @return <code>AgeClass</code> constant, <code>null</code> if id is not contained
 	 */
 	public static AgeClass fromInteger(Integer id)
 	{
@@ -60,7 +59,7 @@ public enum AgeClass
 	/**
 	 * Returns the <code>AgeClass</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>AgeClass</code> constant
+	 * @return <code>AgeClass</code> constant, <code>null</code> if token is not contained
 	 */
 	public static AgeClass fromString(String token)
 	{

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -379,7 +378,13 @@ public class AlgorithmUtility
 		return best;
 	}
 
-<<<<<<< HEAD
+	/**
+	 * TODO guessTheBook
+	 * 
+	 * @param p
+	 * @param booksConcepts
+	 * @return
+	 */
 	public static Book guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
 	{	
 		log.info("Guessing Book for Person: " + p.toConceptString());
@@ -430,6 +435,13 @@ public class AlgorithmUtility
 		return currentMostPossibleBook;
 	}
 	
+	/**
+	 * TODO getPossibleMatches
+	 * 
+	 * @param p
+	 * @param bookConcepts
+	 * @return
+	 */
 	private static int getPossibleMatches(Person p, Set<Concept> bookConcepts)
 	{
 		int matches = 0;
@@ -439,18 +451,6 @@ public class AlgorithmUtility
 				matches++;
 		}
 		return matches;
-=======
-	/**
-	 * TODO guessTheBook
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public static Book guessTheBook(Person p)
-	{
-		// TODO implement guessTheBook
-		return null;
->>>>>>> 1583afeb7897478942b203c76e27495d2d400332
 	}
 
 	// HELPER METHODS

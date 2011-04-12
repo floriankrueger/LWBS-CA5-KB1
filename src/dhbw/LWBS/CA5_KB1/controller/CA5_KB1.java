@@ -30,14 +30,12 @@ public class CA5_KB1
 		String trainingData = "gruppe_ca5_kb1.csv";
 		String proofData = null;
 
-		// TODO Switch? Stimmt das so?
 		switch (args.length)
 		{
-		case 1:
-			trainingData = args[0];
-
 		case 2:
 			proofData = args[1];
+		case 1:
+			trainingData = args[0];
 			break;
 		}
 
@@ -62,7 +60,6 @@ public class CA5_KB1
 		System.out.println(" done\n");
 
 		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
-<<<<<<< HEAD
 		booksConcepts.put(Book.BOOK_A,AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
 				bookC)));
 		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
@@ -80,18 +77,7 @@ public class CA5_KB1
 		System.out.println("[CONCEPTS FOR BOOK A]:\n" + booksConcepts.get(Book.BOOK_A));
 		System.out.println("[CONCEPTS FOR BOOK B]:\n" + booksConcepts.get(Book.BOOK_B));
 		System.out.println("[CONCEPTS FOR BOOK C]:\n" + booksConcepts.get(Book.BOOK_C));
-		
-=======
-		Set<Concept> c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB, bookC));
-		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
 
-		/*
-		 * Set<Concept> c_bookB = AlgorithmUtility.aqAlgo(bookB,
-		 * mergeLists(bookA, bookC)); Set<Concept> c_bookC =
-		 * AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA, bookB));
-		 */
-
->>>>>>> 1583afeb7897478942b203c76e27495d2d400332
 		if (proofData == null)
 		{
 			System.out.println("No proof data given, stepping out");

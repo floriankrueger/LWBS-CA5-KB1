@@ -1,5 +1,8 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,51 +58,73 @@ public class CA5_KB1
 		populateBookLists(trainingPersons, bookA, bookB, bookC);
 		System.out.println(" done\n");
 
-		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A]\n");
 		booksConcepts.put(Book.BOOK_A,AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
 				bookC)));
-		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A]\n\n");
 		
-		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK B] |||||||||||||||||||||||| \n");
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK B]\n");
 		booksConcepts.put(Book.BOOK_B,AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
 				bookC)));
-		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK B] |||||||||||||||||||||||| \n");
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK B]\n\n");
 		
-		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK C] |||||||||||||||||||||||| \n");
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK C]\n");
 		booksConcepts.put(Book.BOOK_C,AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
 				bookB)));
-		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK C] |||||||||||||||||||||||| \n");
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK C]\n\n");
 
-		System.out.println("[CONCEPTS FOR BOOK A]:\n" + booksConcepts.get(Book.BOOK_A));
-		System.out.println("[CONCEPTS FOR BOOK B]:\n" + booksConcepts.get(Book.BOOK_B));
-		System.out.println("[CONCEPTS FOR BOOK C]:\n" + booksConcepts.get(Book.BOOK_C));
+		System.out.println("[CONCEPTS FOR BOOK A]:\n" + booksConcepts.get(Book.BOOK_A) + "\n");
+		System.out.println("[CONCEPTS FOR BOOK B]:\n" + booksConcepts.get(Book.BOOK_B) + "\n");
+		System.out.println("[CONCEPTS FOR BOOK C]:\n" + booksConcepts.get(Book.BOOK_C) + "\n");
 
-		if (proofData == null)
-		{
-			System.out.println("No proof data given, stepping out");
-			return;
-		}
+		System.out.println("[ LEARNING COMPLETED ]\n");
 		
-		proofPersons = importPersons(proofData);
-		for (Person person : proofPersons)
+		if (proofData != null)
 		{
-			// generate some nice output to represent the result
-			List<Book> results = AlgorithmUtility.guessTheBook(person, booksConcepts);
-			System.out.print("Proof " + person.getNumber() + " (" + person.getBook() + "): ");
-			
-			if (results.size() == 0)
-				System.out.println("No Book matched.");
-			else
+			proofPersons = importPersons(proofData);
+			for (Person person : proofPersons)
 			{
-				System.out.print(results.get(0));
-				
-				for ( int i = 1 ; i < results.size() ; i++ )
-					System.out.print(" or " + results.get(i));
+				getResultForTestData(booksConcepts, person);
 			}
 			
-			System.out.println();
+			return;
 		}
+		else
+		{
+			System.out.println("No proof data given, continuing to interactive mode");
+			
+			ConceptConsole c = new ConceptConsole();
+			
+			Person person = c.readConcept();
+			
+			getResultForTestData(booksConcepts, person);
+		}
+	}
 
+	/**
+	 * @param booksConcepts
+	 * @param person
+	 */
+	private static void getResultForTestData(
+			HashMap<Book, Set<Concept>> booksConcepts, Person person)
+	{
+		// guess the book
+		List<Book> results = AlgorithmUtility.guessTheBook(person, booksConcepts);
+		
+		// generate some nice output to represent the result(s)
+		System.out.print("Proof " + person.getNumber() + " (" + person.getBook() + "): ");
+		
+		if (results.size() == 0)
+			System.out.println("No Book matched.");
+		else
+		{
+			System.out.print(results.get(0));
+			
+			for ( int i = 1 ; i < results.size() ; i++ )
+				System.out.print(" or " + results.get(i));
+		}
+		
+		System.out.println();
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.commons.collections.ListUtils;
@@ -36,6 +37,7 @@ public class CA5_KB1
 		ArrayList<Person> bookA = new ArrayList<Person>();
 		ArrayList<Person> bookB = new ArrayList<Person>();
 		ArrayList<Person> bookC = new ArrayList<Person>();
+		HashMap<Book, Set<Concept>> booksConcepts = new HashMap<Book, Set<Concept>>();
 
 		System.out.print("Reading data for training from: " + trainingData + " ..");
 		trainingPersons = importPersons(trainingData);
@@ -45,26 +47,34 @@ public class CA5_KB1
 		System.out.println(" done\n");
 
 		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
-		Set<Concept> c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
-				bookC));
+		booksConcepts.put(Book.BOOK_A,AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
+				bookC)));
 		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
 		
-/*		Set<Concept> c_bookB = AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
-				bookC));
-		Set<Concept> c_bookC = AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
-				bookB));
-*/
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK B] |||||||||||||||||||||||| \n");
+		booksConcepts.put(Book.BOOK_B,AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
+				bookC)));
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK B] |||||||||||||||||||||||| \n");
+		
+		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK C] |||||||||||||||||||||||| \n");
+		booksConcepts.put(Book.BOOK_C,AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
+				bookB)));
+		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK C] |||||||||||||||||||||||| \n");
 
+		System.out.println("[CONCEPTS FOR BOOK A]:\n" + booksConcepts.get(Book.BOOK_A));
+		System.out.println("[CONCEPTS FOR BOOK B]:\n" + booksConcepts.get(Book.BOOK_B));
+		System.out.println("[CONCEPTS FOR BOOK C]:\n" + booksConcepts.get(Book.BOOK_C));
+		
 		if (proofData == null)
 		{
 			System.out.println("No proof data given, stepping out");
 			return;
 		}
-
+		
 		proofPersons = importPersons(proofData);
 		for (Person person : proofPersons)
 		{
-			Book result = AlgorithmUtility.guessTheBook(person);
+			Book result = AlgorithmUtility.guessTheBook(person, booksConcepts);
 			System.out.println("Proof " + person.getNumber() + ": "
 					+ result.toString());
 		}

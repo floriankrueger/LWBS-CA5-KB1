@@ -1,0 +1,50 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{ngerman}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[svgnames]{xcolor}
+\usepackage{emp}
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+\definecolor{lightyellow}{RGB}{255,255,224}
+
+\lstset{
+language=java,
+basicstyle=\scriptsize\ttfamily,
+numbers=left,
+numberstyle=\scriptsize\ttfamily,
+stepnumber=1,
+numbersep=5pt,
+commentstyle=\color[rgb]{0.24609375,0.5,0.37109375}\ttfamily,
+keywordstyle=\color[rgb]{0.5,0,0.33203125}\bfseries\ttfamily,
+stringstyle=\color[rgb]{0.1640625,0,1}\ttfamily,
+backgroundcolor=\color{lightyellow},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frameround=fttt,
+frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=true,
+caption=\lstname,
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+\author{Florian Krüger und Patricia Schwander\\ TIT08AIB}
+\title{Dokumentation WBS-CA5\_KB1}
+
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\end{document}

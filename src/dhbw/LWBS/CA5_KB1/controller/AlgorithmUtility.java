@@ -492,7 +492,7 @@ public class AlgorithmUtility
 	 * @param p
 	 *            example of type <code>Person</code> that has to be matched
 	 * @param bookConcepts
-	 *            containing all concept of one book
+	 *            containing all concepts of one book
 	 * @return number of matches
 	 */
 	private static int getPossibleMatches(Person p, Set<Concept> bookConcepts)

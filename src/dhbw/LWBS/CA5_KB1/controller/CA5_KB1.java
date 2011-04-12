@@ -9,10 +9,16 @@ import dhbw.LWBS.CA5_KB1.model.Book;
 import dhbw.LWBS.CA5_KB1.model.Concept;
 import dhbw.LWBS.CA5_KB1.model.Person;
 
+/**
+ * TODO class doc
+ * 
+ * 
+ */
 public class CA5_KB1
 {
-
 	/**
+	 * TODO main
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args)
@@ -20,16 +26,21 @@ public class CA5_KB1
 		String trainingData = "gruppe_ca5_kb1.csv";
 		String proofData = null;
 
-		// TODO Switch?
-		if (args.length == 1)
+		// TODO Switch? Stimmt das so?
+		switch (args.length)
 		{
+		case 1:
 			trainingData = args[0];
-		}
-		else if (args.length == 2)
-		{
-			trainingData = args[0];
+
+		case 2:
 			proofData = args[1];
+			break;
 		}
+
+		/*
+		 * if (args.length == 1) { trainingData = args[0]; } else if
+		 * (args.length == 2) { trainingData = args[0]; proofData = args[1]; }
+		 */
 
 		ArrayList<Person> trainingPersons;
 		ArrayList<Person> proofPersons;
@@ -37,7 +48,8 @@ public class CA5_KB1
 		ArrayList<Person> bookB = new ArrayList<Person>();
 		ArrayList<Person> bookC = new ArrayList<Person>();
 
-		System.out.print("Reading data for training from: " + trainingData + " ..");
+		System.out.print("Reading data for training from: " + trainingData
+				+ " ..");
 		trainingPersons = importPersons(trainingData);
 		System.out.println(" done\n");
 		System.out.print("Populating example sets for each book ..");
@@ -45,15 +57,14 @@ public class CA5_KB1
 		System.out.println(" done\n");
 
 		System.out.println("[ENTERING AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
-		Set<Concept> c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB,
-				bookC));
+		Set<Concept> c_bookA = AlgorithmUtility.aqAlgo(bookA, mergeLists(bookB, bookC));
 		System.out.println("[FINISHED AQ ALGORITHM FOR BOOK A] |||||||||||||||||||||||| \n");
-		
-/*		Set<Concept> c_bookB = AlgorithmUtility.aqAlgo(bookB, mergeLists(bookA,
-				bookC));
-		Set<Concept> c_bookC = AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA,
-				bookB));
-*/
+
+		/*
+		 * Set<Concept> c_bookB = AlgorithmUtility.aqAlgo(bookB,
+		 * mergeLists(bookA, bookC)); Set<Concept> c_bookC =
+		 * AlgorithmUtility.aqAlgo(bookC, mergeLists(bookA, bookB));
+		 */
 
 		if (proofData == null)
 		{
@@ -71,6 +82,15 @@ public class CA5_KB1
 
 	}
 
+	/**
+	 * Appends two given lists and returns this as a new list.
+	 * 
+	 * @param a
+	 *            list containing <code>Persons</code>
+	 * @param b
+	 *            list containing <code>Persons</code>
+	 * @return concatenated list containing <code>Persons</code>
+	 */
 	@SuppressWarnings("unchecked")
 	private static ArrayList<Person> mergeLists(ArrayList<Person> a,
 			ArrayList<Person> b)
@@ -79,10 +99,18 @@ public class CA5_KB1
 	}
 
 	/**
+	 * Fills the given lists with the examples of the first list according to
+	 * the book's type. Example: Person example that has chosen Book A. This
+	 * example will be filled into the first given list called bookA.
+	 * 
 	 * @param allPersons
+	 *            list containing all <code>Person</code> examples
 	 * @param bookA
+	 *            list to be filled with examples of type <code>Person</code>
 	 * @param bookB
+	 *            list to be filled with examples of type <code>Person</code>
 	 * @param bookC
+	 *            list to be filled with examples of type <code>Person</code>
 	 */
 	private static void populateBookLists(ArrayList<Person> allPersons,
 			ArrayList<Person> bookA, ArrayList<Person> bookB,
@@ -111,8 +139,12 @@ public class CA5_KB1
 	}
 
 	/**
-	 * @param fileName
+	 * Fills a list with examples of type <code>Person</code> from the specified
+	 * file and returns it afterwards.
 	 * 
+	 * @param fileName
+	 *            name of the file in which the data is found
+	 * @return list containing examples of type <code>Person</code>
 	 */
 	private static ArrayList<Person> importPersons(String fileName)
 	{

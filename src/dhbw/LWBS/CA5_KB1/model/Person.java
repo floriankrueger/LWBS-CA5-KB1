@@ -3,9 +3,13 @@ package dhbw.LWBS.CA5_KB1.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * TODO class doc
+ * 
+ *
+ */
 public class Person
 {
-
 	protected int number;
 	protected AgeClass ageClass;
 	protected Gender gender;
@@ -19,6 +23,8 @@ public class Person
 	protected Map<String,Integer> attributes;
 
 	/**
+	 * Class constructor
+	 * 
 	 * @param number
 	 * @param ageClass
 	 * @param gender
@@ -47,6 +53,9 @@ public class Person
 		initHashMap();
 	}
 
+	/**
+	 * TODO initHashMap
+	 */
 	private void initHashMap()
 	{
 		this.attributes = new HashMap<String,Integer>();
@@ -59,6 +68,11 @@ public class Person
 		this.attributes.put(Income.NAME, income.getId());
 	}
 
+	/**
+	 * Class Constructor initiating a <code>Person</code> with the help of example data from a file
+	 * 
+	 * @param data
+	 */
 	public Person(String[] data)
 	{
 		super();
@@ -139,7 +153,7 @@ public class Person
 		return true;
 	}
 	
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toConceptString()

@@ -2,56 +2,85 @@ package dhbw.LWBS.CA5_KB1.model;
 
 import java.util.Map;
 
+/**
+ * TODO class doc
+ * 
+ * 
+ */
 public class Concept extends Person
 {
-	Concept(AgeClass ageClass, Gender gender, Married married,
+	/**
+	 * Class constructor
+	 * @param ageClass
+	 * @param gender
+	 * @param married
+	 * @param children
+	 * @param degree
+	 * @param profession
+	 * @param income
+	 */
+	public Concept(AgeClass ageClass, Gender gender, Married married,
 			Children children, Degree degree, Profession profession,
 			Income income)
 	{
-		super(0, ageClass, gender, married, children, degree, profession,
-				income, Book.NONE);
+		super(0, ageClass, gender, married, children, degree, profession, income, Book.NONE);
 	}
 
+	/**
+	 * TODO getMostSpecializedConcept
+	 * @return
+	 */
 	public static Concept getMostSpecializedConcept()
 	{
-		return new Concept(AgeClass.NONE, Gender.NONE, Married.NONE,
-				Children.NONE, Degree.NONE, Profession.NONE, Income.NONE);
+		return new Concept(AgeClass.NONE, Gender.NONE, Married.NONE, Children.NONE, Degree.NONE, Profession.NONE, Income.NONE);
 	}
 
+	/**
+	 * TODO getMostGeneralizedConcept
+	 * @return
+	 */
 	public static Concept getMostGeneralizedConcept()
 	{
-		return new Concept(AgeClass.ALL, Gender.ALL, Married.ALL, Children.ALL,
-				Degree.ALL, Profession.ALL, Income.ALL);
+		return new Concept(AgeClass.ALL, Gender.ALL, Married.ALL, Children.ALL, Degree.ALL, Profession.ALL, Income.ALL);
 	}
 
+	/**
+	 * TODO covers
+	 * @param p
+	 * @return
+	 */
 	public boolean covers(Person p)
 	{
 		for (String attributeKey : attributes.keySet())
 		{
 			int this_Attribute = attributes.get(attributeKey);
-			Map<String,Integer> att = p.getAttributes();
+			Map<String, Integer> att = p.getAttributes();
 			int other_Attribute = att.get(attributeKey);
-			
+
 			if ((this_Attribute != other_Attribute) && (this_Attribute != 100))
 				return false;
 		}
 		return true;
 	}
-	
+
+	/**
+	 * TODO copy
+	 * @return
+	 */
 	public Concept copy()
 	{
-		Concept temp = new Concept(AgeClass.fromInteger(ageClass.getId()), 
-				Gender.fromInteger(gender.getId()),
-				Married.fromInteger(married.getId()),
-				Children.fromInteger(children.getId()),
-				Degree.fromInteger(degree.getId()), 
-				Profession.fromInteger(profession.getId()), 
-				Income.fromInteger(income.getId()));
-		
+		Concept temp = new Concept(AgeClass.fromInteger(ageClass.getId()), Gender.fromInteger(gender.getId()), Married.fromInteger(married.getId()), Children.fromInteger(children.getId()), Degree.fromInteger(degree.getId()), Profession.fromInteger(profession.getId()), Income.fromInteger(income.getId()));
+
 		return temp;
 	}
-	
-	public void setAttribute (String name, Integer attribute)
+
+	/**
+	 * TODO setAttribute
+	 * 
+	 * @param name
+	 * @param attribute
+	 */
+	public void setAttribute(String name, Integer attribute)
 	{
 		if (name.equals(AgeClass.NAME))
 			setAgeClass(AgeClass.fromInteger(attribute));
@@ -68,9 +97,11 @@ public class Concept extends Person
 		else if (name.equals(Income.NAME))
 			setIncome(Income.fromInteger(attribute));
 		else
-			System.err.println("setAttribute called with unknown attribute name: " + name);
+			System.err.println("setAttribute called with unknown attribute name: "
+					+ name);
 	}
-	
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -80,7 +111,7 @@ public class Concept extends Person
 		if (!(obj instanceof Person))
 			return false;
 		Person other = (Person) obj;
-		
+
 		if (ageClass != other.ageClass)
 			return false;
 		if (children != other.children)
@@ -97,8 +128,8 @@ public class Concept extends Person
 			return false;
 		return true;
 	}
-	
-	/*
+
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()

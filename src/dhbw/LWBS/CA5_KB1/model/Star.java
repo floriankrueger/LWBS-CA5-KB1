@@ -1,9 +1,9 @@
 package dhbw.LWBS.CA5_KB1.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * TODO class doc
@@ -30,8 +30,8 @@ public class Star
 	public Star(List<Concept> s, List<Concept> g)
 	{
 		super();
-		this.specializedConcepts = new HashSet<Concept>(s);
-		this.generalizedConcepts = new HashSet<Concept>(g);
+		this.specializedConcepts = new TreeSet<Concept>(s);
+		this.generalizedConcepts = new TreeSet<Concept>(g);
 	}
 
 	/**

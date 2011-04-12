@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -170,8 +171,8 @@ public class AlgorithmUtility
 
 			log.trace(">> [BEGIN] specializing");
 
-			Set<Concept> toBeInserted_g = new HashSet<Concept>();
-			Set<Concept> toBeDeleted_g = new HashSet<Concept>();
+			Set<Concept> toBeInserted_g = new TreeSet<Concept>();
+			Set<Concept> toBeDeleted_g = new TreeSet<Concept>();
 
 			log.trace(">>> Iterating over concepts of \"G\"");
 

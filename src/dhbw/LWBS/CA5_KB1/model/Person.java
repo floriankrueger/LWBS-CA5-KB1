@@ -8,8 +8,11 @@ import java.util.Map;
  * 
  *
  */
-public class Person
+public class Person implements Comparable<Person>
 {
+	private static int instances = 0;
+	
+	protected int instanceID;
 	protected int number;
 	protected AgeClass ageClass;
 	protected Gender gender;
@@ -40,6 +43,7 @@ public class Person
 			Profession profession, Income income, Book book)
 	{
 		super();
+		this.instanceID = instances++;
 		this.number = number;
 		this.ageClass = ageClass;
 		this.gender = gender;
@@ -216,5 +220,11 @@ public class Person
 	public Map<String, Integer> getAttributes()
 	{
 		return attributes;
+	}
+
+	@Override
+	public int compareTo(Person o)
+	{
+		return this.instanceID - o.instanceID;
 	}
 }

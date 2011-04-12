@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.commons.collections.ListUtils;
+import org.apache.log4j.BasicConfigurator;
 
 import dhbw.LWBS.CA5_KB1.model.Book;
 import dhbw.LWBS.CA5_KB1.model.Concept;
@@ -18,6 +19,8 @@ public class CA5_KB1
 	 */
 	public static void main(String[] args)
 	{
+		BasicConfigurator.configure();
+		
 		String trainingData = "gruppe_ca5_kb1.csv";
 		String proofData = null;
 
@@ -75,8 +78,12 @@ public class CA5_KB1
 		for (Person person : proofPersons)
 		{
 			Book result = AlgorithmUtility.guessTheBook(person, booksConcepts);
-			System.out.println("Proof " + person.getNumber() + ": "
-					+ result.toString());
+			System.out.print("Proof " + person.getNumber() + " (" + person.getBook() + "): "
+					+ result);
+			if (person.getBook() != result)
+				System.out.println(" MISMATCH");
+			else
+				System.out.println(" OK");
 		}
 
 	}

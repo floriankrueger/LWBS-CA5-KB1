@@ -40,11 +40,6 @@ public class CA5_KB1
 			break;
 		}
 
-		/*
-		 * if (args.length == 1) { trainingData = args[0]; } else if
-		 * (args.length == 2) { trainingData = args[0]; proofData = args[1]; }
-		 */
-
 		ArrayList<Person> trainingPersons;
 		ArrayList<Person> proofPersons;
 		ArrayList<Person> bookA = new ArrayList<Person>();

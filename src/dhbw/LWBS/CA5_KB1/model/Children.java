@@ -1,5 +1,10 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+/**
+ * TODO enum doc
+ * 
+ *
+ */
 public enum Children
 {
 	NONE(-1, ""),

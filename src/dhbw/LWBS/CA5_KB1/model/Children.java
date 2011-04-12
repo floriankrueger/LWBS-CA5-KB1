@@ -1,5 +1,10 @@
 package dhbw.LWBS.CA5_KB1.model;
 
+/**
+ * Contains all types of <code>Children</code> that can occur in the file that is read in.
+ * 
+ *
+ */
 public enum Children
 {
 	NONE(-1, ""),
@@ -30,6 +35,11 @@ public enum Children
 	private int id;
 	private String token;
 	
+	/**
+	 * Enum constructor
+	 * @param id
+	 * @param token
+	 */
 	Children(int id, String token)
 	{
 		this.id = id;
@@ -40,6 +50,12 @@ public enum Children
 	{
 		return id;
 	}
+	
+	/**
+	 * Returns the <code>Children</code> constant that matches with the given id.
+	 * @param id that is searched for
+	 * @return <code>Children</code> constant
+	 */
 	public static Children fromInteger(Integer id)
 	{
 		if (id != null)
@@ -56,6 +72,11 @@ public enum Children
 		return null;
 	}
 
+	/**
+	 * Returns the <code>Children</code> constant that matches with the given token.
+	 * @param token that is searched for
+	 * @return <code>Children</code> constant
+	 */
 	public static Children fromString(String token)
 	{
 		if (token != null)

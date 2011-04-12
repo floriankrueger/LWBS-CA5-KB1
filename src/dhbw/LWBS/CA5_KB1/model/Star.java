@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * TODO class doc
+ * 
+ * 
+ */
 public class Star
 {
 	private Set<Concept> specializedConcepts;
@@ -29,12 +34,28 @@ public class Star
 		this.generalizedConcepts = new HashSet<Concept>(g);
 	}
 
+	/**
+	 * Adds the given concept to the <code>Set</code> of specializedConcepts and
+	 * returns if it was successful
+	 * 
+	 * @param c
+	 *            <code>Concept</code> that should be added
+	 * @return true if adding was successful, false otherwise
+	 */
 	//Fill sets with a concept c
 	public boolean addSpecializedConcept(Concept c)
 	{
 		return specializedConcepts.add(c);
 	}
 
+	/**
+	 * Adds the given concept to the <code>Set</code> of generalizedConcepts and
+	 * returns if it was successful
+	 * 
+	 * @param c
+	 *            <code>Concept</code> that should be added
+	 * @return true if adding was successful, false otherwise
+	 */
 	public boolean addGeneralizedConcept(Concept c)
 	{
 		return generalizedConcepts.add(c);
@@ -58,6 +79,7 @@ public class Star
 	 * @return String which contains both generalized and specialized
 	 *         <code>Concepts</code>
 	 */
+	@Override
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();

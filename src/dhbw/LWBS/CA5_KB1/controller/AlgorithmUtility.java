@@ -388,7 +388,7 @@ public class AlgorithmUtility
 	 */
 	public static List<Book> guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
 	{	
-		log.setLevel(Level.DEBUG);
+		log.setLevel(Level.WARN);
 		log.info("Guessing Book for Person: " + p.toConceptString());
 		
 		int conceptsTotal = 0;	// holds the total number of all concepts for all books

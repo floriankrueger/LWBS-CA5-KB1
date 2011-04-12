@@ -6,12 +6,12 @@ import java.util.Map;
 /**
  * TODO class doc
  * 
- *
+ * 
  */
 public class Person implements Comparable<Person>
 {
 	private static int instances = 0;
-	
+
 	protected int instanceID;
 	protected int number;
 	protected AgeClass ageClass;
@@ -22,8 +22,8 @@ public class Person implements Comparable<Person>
 	protected Profession profession;
 	protected Income income;
 	protected Book book;
-	
-	protected Map<String,Integer> attributes;
+
+	protected Map<String, Integer> attributes;
 
 	/**
 	 * Class constructor
@@ -38,9 +38,15 @@ public class Person implements Comparable<Person>
 	 * @param income
 	 * @param book
 	 */
-	public Person(int number, AgeClass ageClass, Gender gender,
-			Married married, Children children, Degree degree,
-			Profession profession, Income income, Book book)
+	public Person(int number,
+			AgeClass ageClass,
+			Gender gender,
+			Married married,
+			Children children,
+			Degree degree,
+			Profession profession,
+			Income income,
+			Book book)
 	{
 		super();
 		this.instanceID = instances++;
@@ -53,16 +59,17 @@ public class Person implements Comparable<Person>
 		this.profession = profession;
 		this.income = income;
 		this.book = book;
-		
+
 		initHashMap();
 	}
 
 	/**
-	 * TODO initHashMap
+	 * Initiates a <code>HashMap</code> with each attribute of a
+	 * <code>Concept</code> containing name and number of their according enum
 	 */
 	private void initHashMap()
 	{
-		this.attributes = new HashMap<String,Integer>();
+		this.attributes = new HashMap<String, Integer>();
 		this.attributes.put(AgeClass.NAME, ageClass.getId());
 		this.attributes.put(Gender.NAME, gender.getId());
 		this.attributes.put(Married.NAME, married.getId());
@@ -73,7 +80,8 @@ public class Person implements Comparable<Person>
 	}
 
 	/**
-	 * Class Constructor initiating a <code>Person</code> with the help of example data from a file
+	 * Class Constructor initiating a <code>Person</code> with the help of
+	 * example data from a file
 	 * 
 	 * @param data
 	 */
@@ -103,10 +111,10 @@ public class Person implements Comparable<Person>
 		this.profession = Profession.fromString(data[6]);
 		this.income = Income.fromString(data[7]);
 		this.book = Book.fromString(data[8]);
-		
+
 		initHashMap();
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -115,7 +123,8 @@ public class Person implements Comparable<Person>
 		result = prime * result
 				+ ((ageClass == null) ? 0 : ageClass.hashCode());
 		result = prime * result + ((book == null) ? 0 : book.hashCode());
-		result = prime * result + ((children == null) ? 0 : children.hashCode());
+		result = prime * result
+				+ ((children == null) ? 0 : children.hashCode());
 		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((income == null) ? 0 : income.hashCode());
@@ -156,16 +165,17 @@ public class Person implements Comparable<Person>
 			return false;
 		return true;
 	}
-	
-	/** (non-Javadoc)
+
+	/**
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toConceptString()
 	{
-		return "(" + ageClass + ", " + gender
-				+ ", " + married + ", " + children
-				+ ", " + degree + ", " + profession
-				+ ", " + income + ")";
+		return "(" + ageClass + ", " + gender + ", " + married + ", "
+				+ children + ", " + degree + ", " + profession + ", " + income
+				+ ")";
 	}
 
 	// GETTER&SETTER

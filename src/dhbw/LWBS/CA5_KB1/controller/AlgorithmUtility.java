@@ -1,6 +1,7 @@
 package dhbw.LWBS.CA5_KB1.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -367,10 +368,63 @@ public class AlgorithmUtility
 		return best;
 	}
 
-	public static Book guessTheBook(Person p)
+	public static Book guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
 	{
-		// TODO implement
-		return null;
+		log.info("Guessing Book for Person: " + p.toConceptString());
+		
+		int conceptsTotal = 0;	// holds the total number of all concepts for all books
+		HashMap<Book, Integer> matches = new HashMap<Book, Integer>();	// holds the number of matches for each book
+		
+		// calculate the possibilities
+		for (Book b : booksConcepts.keySet())
+		{
+			// add the number of concepts of the current book to the 
+			//  total number of concepts
+			conceptsTotal += booksConcepts.get(b).size();
+			
+			// retrieve the number of matches for the current book
+			int matchesForBook = getPossibleMatches(p, booksConcepts.get(b));
+			
+			// calculate the LOCAL percental match
+			double matchPercent = matchesForBook / (booksConcepts.get(b).size() / 100);
+			log.info("Book \"" + b + "\": " + matchPercent + "%");
+			
+			matches.put(b, matchesForBook);
+		}
+		
+		int maxMatches = -1;	// holds the maximum number of matches found in the map
+		Book currentMostPossibleBook = null;	// the book to be returned
+		
+		// find the highest match
+		for (Book b : matches.keySet())
+		{
+			// if the number of matches for the current book is larger
+			//  than the current number of matches, it is the currently 
+			//  most possible book to be taken
+			if(matches.get(b) > maxMatches)
+			{
+				maxMatches = matches.get(b);
+				currentMostPossibleBook = b;
+			}
+		}
+		
+		double matchPercent = maxMatches / (conceptsTotal / 100);
+		log.info("Book \"" + currentMostPossibleBook + "\" is the most " +
+				"possible choice for Person " + p + " with an overall match of " +
+				matchPercent + "%.");
+			
+		return currentMostPossibleBook;
+	}
+	
+	private static int getPossibleMatches(Person p, Set<Concept> bookConcepts)
+	{
+		int matches = 0;
+		for (Concept c : bookConcepts)
+		{
+			if (c.covers(p))
+				matches++;
+		}
+		return matches;
 	}
 
 	// HELPER METHODS

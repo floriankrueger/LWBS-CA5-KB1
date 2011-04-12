@@ -386,12 +386,14 @@ public class AlgorithmUtility
 	 * @param booksConcepts
 	 * @return
 	 */
-	public static Book guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
+	public static List<Book> guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
 	{	
+		log.setLevel(Level.DEBUG);
 		log.info("Guessing Book for Person: " + p.toConceptString());
 		
 		int conceptsTotal = 0;	// holds the total number of all concepts for all books
 		HashMap<Book, Double> matches = new HashMap<Book, Double>();	// holds the number of matches for each book
+		List<Book> possibleBooks = new ArrayList<Book>(); // holds all books that match more than 0.0%
 		
 		// calculate the possibilities
 		for (Book b : booksConcepts.keySet())
@@ -407,11 +409,17 @@ public class AlgorithmUtility
 			double matchPercent = calculatePercentage(matchesForBook, booksConcepts.get(b).size());
 			log.debug("Book \"" + b + "\": " + matchPercent + "%");
 			
+			if (matchPercent > 0.0)
+			{
+				// add the matching book to the return list
+				possibleBooks.add(b);
+			}
+			
 			matches.put(b, matchPercent);
 		}
 		
 		double maxMatches = -1;	// holds the maximum number of matches found in the map
-		Book currentMostPossibleBook = null;	// the book to be returned
+		Book currentMostPossibleBook = null;	// the book to be returned 
 		
 		// find the highest match
 		for (Book b : matches.keySet())
@@ -433,7 +441,7 @@ public class AlgorithmUtility
 				"possible choice for Person " + p + " with an overall match of " +
 				matchPercent + "%.");
 			
-		return currentMostPossibleBook;
+		return possibleBooks;
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package dhbw.LWBS.CA5_KB1.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.ListUtils;
@@ -87,13 +88,21 @@ public class CA5_KB1
 		proofPersons = importPersons(proofData);
 		for (Person person : proofPersons)
 		{
-			Book result = AlgorithmUtility.guessTheBook(person, booksConcepts);
-			System.out.print("Proof " + person.getNumber() + " (" + person.getBook() + "): "
-					+ result);
-			if (person.getBook() != result)
-				System.out.println(" MISMATCH");
+			// generate some nice output to represent the result
+			List<Book> results = AlgorithmUtility.guessTheBook(person, booksConcepts);
+			System.out.print("Proof " + person.getNumber() + " (" + person.getBook() + "): ");
+			
+			if (results.size() == 0)
+				System.out.println("No Book matched.");
 			else
-				System.out.println(" OK");
+			{
+				System.out.print(results.get(0));
+				
+				for ( int i = 1 ; i < results.size() ; i++ )
+					System.out.print(" or " + results.get(i));
+			}
+			
+			System.out.println();
 		}
 
 	}

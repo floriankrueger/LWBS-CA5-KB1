@@ -49,8 +49,7 @@ public class AlgorithmUtility
 	public static Set<Concept> aqAlgo(ArrayList<Person> positiveExamples,
 			ArrayList<Person> negativeExamples)
 	{
-		BasicConfigurator.configure();
-		log.setLevel(Level.DEBUG);
+		log.setLevel(Level.WARN);
 
 		Set<Concept> k = new HashSet<Concept>();
 		for (Person person : positiveExamples)
@@ -369,11 +368,11 @@ public class AlgorithmUtility
 	}
 
 	public static Book guessTheBook(Person p, HashMap<Book, Set<Concept>> booksConcepts)
-	{
+	{	
 		log.info("Guessing Book for Person: " + p.toConceptString());
 		
 		int conceptsTotal = 0;	// holds the total number of all concepts for all books
-		HashMap<Book, Integer> matches = new HashMap<Book, Integer>();	// holds the number of matches for each book
+		HashMap<Book, Double> matches = new HashMap<Book, Double>();	// holds the number of matches for each book
 		
 		// calculate the possibilities
 		for (Book b : booksConcepts.keySet())
@@ -383,16 +382,16 @@ public class AlgorithmUtility
 			conceptsTotal += booksConcepts.get(b).size();
 			
 			// retrieve the number of matches for the current book
-			int matchesForBook = getPossibleMatches(p, booksConcepts.get(b));
+			double matchesForBook = getPossibleMatches(p, booksConcepts.get(b));
 			
 			// calculate the LOCAL percental match
-			double matchPercent = matchesForBook / (booksConcepts.get(b).size() / 100);
-			log.info("Book \"" + b + "\": " + matchPercent + "%");
+			double matchPercent = calculatePercentage(matchesForBook, booksConcepts.get(b).size());
+			log.debug("Book \"" + b + "\": " + matchPercent + "%");
 			
-			matches.put(b, matchesForBook);
+			matches.put(b, matchPercent);
 		}
 		
-		int maxMatches = -1;	// holds the maximum number of matches found in the map
+		double maxMatches = -1;	// holds the maximum number of matches found in the map
 		Book currentMostPossibleBook = null;	// the book to be returned
 		
 		// find the highest match
@@ -403,12 +402,14 @@ public class AlgorithmUtility
 			//  most possible book to be taken
 			if(matches.get(b) > maxMatches)
 			{
+				log.trace("max " + maxMatches + " < " + matches.get(b) + " (was " + currentMostPossibleBook + ")");
 				maxMatches = matches.get(b);
 				currentMostPossibleBook = b;
+				log.trace("max changed to :" + maxMatches + "(is now " + currentMostPossibleBook + ")");
 			}
 		}
 		
-		double matchPercent = maxMatches / (conceptsTotal / 100);
+		double matchPercent = calculatePercentage(maxMatches, conceptsTotal);
 		log.info("Book \"" + currentMostPossibleBook + "\" is the most " +
 				"possible choice for Person " + p + " with an overall match of " +
 				matchPercent + "%.");
@@ -474,5 +475,13 @@ public class AlgorithmUtility
 			c.setIncome(p.getIncome());
 		else if (p.getIncome() != c.getIncome())
 			c.setIncome(Income.ALL);
+	}
+	
+	private static double calculatePercentage(double matchesForBook, int total)
+	{
+		if (total == 0)
+			return 0;
+		else
+			return matchesForBook / (total / 100.0);
 	}
 }

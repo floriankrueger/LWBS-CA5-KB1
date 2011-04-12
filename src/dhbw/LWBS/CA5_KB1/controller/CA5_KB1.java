@@ -95,9 +95,11 @@ public class CA5_KB1
 			
 			ConceptConsole c = new ConceptConsole();
 			
-			Person person = c.readConcept();
-			
-			getResultForTestData(booksConcepts, person);
+			do 
+			{
+				Person person = c.readConcept();
+				getResultForTestData(booksConcepts, person);	
+			} while (c.continueTesting());
 		}
 	}
 

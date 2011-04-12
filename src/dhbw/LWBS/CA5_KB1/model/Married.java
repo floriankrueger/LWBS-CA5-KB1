@@ -2,7 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>Married</code> that can occur in the file that is read in.
- *
  */
 public enum Married
 {
@@ -11,6 +10,7 @@ public enum Married
 	NONE(0,""),
 	ALL(100,"*");
 
+	//ENUM CODE
 	public static String NAME = "Married";
 	private int id;
 	private String token;
@@ -34,7 +34,7 @@ public enum Married
 	/**
 	 * Returns the <code>Married</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>Married</code> constant
+	 * @return <code>Married</code> constant, <code>null</code> if id is not contained
 	 */
 	public static Married fromInteger(Integer id)
 	{
@@ -55,7 +55,7 @@ public enum Married
 	/**
 	 * Returns the <code>Married</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>Married</code> constant
+	 * @return <code>Married</code> constant, <code>null</code> if token is not contained
 	 */
 	public static Married fromString(String token)
 	{

@@ -2,8 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>Books</code> that can occur in the file that is read in.
- * 
- *
  */
 public enum Book
 {
@@ -37,7 +35,7 @@ public enum Book
 	/**
 	 * Returns the <code>Book</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>Book</code> constant
+	 * @return <code>Book</code> constant, <code>null</code> if id is not contained
 	 */
 	public static Book fromInteger(Integer id)
 	{
@@ -58,7 +56,7 @@ public enum Book
 	/**
 	 * Returns the <code>Book</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>Book</code> constant
+	 * @return <code>Book</code> constant, <code>null</code> if token is not contained
 	 */
 	public static Book fromString(String token)
 	{

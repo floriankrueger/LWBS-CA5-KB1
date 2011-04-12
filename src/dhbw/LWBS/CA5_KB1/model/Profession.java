@@ -2,7 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>Profession</code> that can occur in the file that is read in.
- *
  */
 public enum Profession
 {
@@ -17,6 +16,7 @@ public enum Profession
 	NONE(0, ""),
 	ALL(100, "*");
 
+	//ENUM CODE
 	public static String NAME = "Profession";
 	private int id;
 	private String token;
@@ -40,7 +40,7 @@ public enum Profession
 	/**
 	 * Returns the <code>Profession</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>Profession</code> constant
+	 * @return <code>Profession</code> constant, <code>null</code> if id is not contained
 	 */
 	public static Profession fromInteger(Integer id)
 	{
@@ -61,7 +61,7 @@ public enum Profession
 	/**
 	 * Returns the <code>Profession</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>Profession</code> constant
+	 * @return <code>Profession</code> constant, <code>null</code> if token is not contained
 	 */
 	public static Profession fromString(String token)
 	{

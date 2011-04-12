@@ -2,7 +2,6 @@ package dhbw.LWBS.CA5_KB1.model;
 
 /**
  * Contains all types of <code>Gender</code> that can occur in the file that is read in.
- *
  */
 public enum Gender
 {
@@ -11,6 +10,7 @@ public enum Gender
 	NONE(0, ""),
 	ALL(100, "*");
 
+	//ENUM CODE
 	public static String NAME = "Gender";
 	private int id;
 	private String token;
@@ -34,7 +34,7 @@ public enum Gender
 	/**
 	 * Returns the <code>Gender</code> constant that matches with the given id.
 	 * @param id that is searched for
-	 * @return <code>Gender</code> constant
+	 * @return <code>Gender</code> constant, <code>null</code> if id is not contained
 	 */
 	public static Gender fromInteger(Integer id)
 	{
@@ -55,7 +55,7 @@ public enum Gender
 	/**
 	 * Returns the <code>Gender</code> constant that matches with the given token.
 	 * @param token that is searched for
-	 * @return <code>Gender</code> constant
+	 * @return <code>Gender</code> constant, <code>null</code> if token is not contained
 	 */
 	public static Gender fromString(String token)
 	{

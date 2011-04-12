@@ -1,7 +1,7 @@
 package dhbw.LWBS.CA5_KB1.model;
 
 /**
- * TODO enum doc
+ * Contains all types of <code>Income</code> that can occur in the file that is read in.
  * 
  *
  */
@@ -20,6 +20,11 @@ public enum Income
 	private int id;
 	private String token;
 
+	/**
+	 * Enum constructor
+	 * @param id
+	 * @param token
+	 */
 	Income(int id, String token)
 	{
 		this.id = id;
@@ -30,6 +35,12 @@ public enum Income
 	{
 		return id;
 	}
+	
+	/**
+	 * Returns the <code>Income</code> constant that matches with the given id.
+	 * @param id that is searched for
+	 * @return <code>Income</code> constant
+	 */
 	public static Income fromInteger(Integer id)
 	{
 		if (id != null)
@@ -46,6 +57,11 @@ public enum Income
 		return null;
 	}
 	
+	/**
+	 * Returns the <code>Income</code> constant that matches with the given token.
+	 * @param token that is searched for
+	 * @return <code>Income</code> constant
+	 */
 	public static Income fromString(String token)
 	{
 		if (token != null)

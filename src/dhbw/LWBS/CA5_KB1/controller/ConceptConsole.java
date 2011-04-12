@@ -70,18 +70,22 @@ public class ConceptConsole
 	 */
 	private void readAgeClass(Concept c)
 	{
+		AgeClass tmp = null;
+		
 		do {
 			System.out.print(AgeClass.NAME + " : ");
 			
 			try
 			{
-				c.setAgeClass(AgeClass.fromString(reader.readLine()));
+				tmp = AgeClass.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getAgeClass() == null);
+		} while (tmp == null);
+		
+		c.setAgeClass(tmp);
 	}
 
 	/**
@@ -89,18 +93,22 @@ public class ConceptConsole
 	 */
 	private void readGender(Concept c)
 	{
+		Gender tmp = null;
+		
 		do {
 			System.out.print(Gender.NAME + " : ");
 			
 			try
 			{
-				c.setGender(Gender.fromString(reader.readLine()));
+				tmp = Gender.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getGender() == null);
+		} while (tmp == null);
+		
+		c.setGender(tmp);
 	}
 	
 	/**
@@ -108,18 +116,22 @@ public class ConceptConsole
 	 */
 	private void readMarried(Concept c)
 	{
+		Married tmp = null;
+		
 		do {
 			System.out.print(Married.NAME + " : ");
 			
 			try
 			{
-				c.setMarried(Married.fromString(reader.readLine()));
+				tmp = Married.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getMarried() == null);
+		} while (tmp == null);
+		
+		c.setMarried(tmp);
 	}
 	
 	/**
@@ -127,18 +139,22 @@ public class ConceptConsole
 	 */
 	private void readChildren(Concept c)
 	{
+		Children tmp = null;
+		
 		do {
 			System.out.print(Children.NAME + " : ");
 			
 			try
 			{
-				c.setChildren(Children.fromString(reader.readLine()));
+				tmp = Children.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getChildren() == null);
+		} while (tmp == null);
+		
+		c.setChildren(tmp);
 	}
 	
 	/**
@@ -146,18 +162,22 @@ public class ConceptConsole
 	 */
 	private void readDegree(Concept c)
 	{
+		Degree tmp = null;
+		
 		do {
 			System.out.print(Degree.NAME + " : ");
 			
 			try
 			{
-				c.setDegree(Degree.fromString(reader.readLine()));
+				tmp = Degree.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getDegree() == null);
+		} while (tmp == null);
+		
+		c.setDegree(tmp);
 	}
 	
 	/**
@@ -165,18 +185,22 @@ public class ConceptConsole
 	 */
 	private void readProfession(Concept c)
 	{
+		Profession tmp = null;
+		
 		do {
 			System.out.print(Profession.NAME + " : ");
 			
 			try
 			{
-				c.setProfession(Profession.fromString(reader.readLine()));
+				tmp = Profession.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getProfession() == null);
+		} while (tmp == null);
+		
+		c.setProfession(tmp);
 	}
 	
 	/**
@@ -184,23 +208,21 @@ public class ConceptConsole
 	 */
 	private void readIncome(Concept c)
 	{
+		Income tmp = null;
+		
 		do {
 			System.out.print(Income.NAME + " : ");
 			
 			try
 			{
-				c.setIncome(Income.fromString(reader.readLine()));
+				tmp = Income.fromString(reader.readLine());
 			}
 			catch (IOException ioe) 
 			{
 				System.err.println("IO error, please try again.");
 			}
-		} while (c.getIncome() == null);
+		} while (tmp == null);
+		
+		c.setIncome(tmp);
 	}
-	
-	public boolean isStillReading()
-	{
-		return stillReading;
-	}
-	
 }

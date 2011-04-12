@@ -11,6 +11,7 @@ public class Concept extends Person
 {
 	/**
 	 * Class constructor
+	 * 
 	 * @param ageClass
 	 * @param gender
 	 * @param married
@@ -19,35 +20,60 @@ public class Concept extends Person
 	 * @param profession
 	 * @param income
 	 */
-	public Concept(AgeClass ageClass, Gender gender, Married married,
-			Children children, Degree degree, Profession profession,
+	public Concept(AgeClass ageClass,
+			Gender gender,
+			Married married,
+			Children children,
+			Degree degree,
+			Profession profession,
 			Income income)
 	{
 		super(0, ageClass, gender, married, children, degree, profession, income, Book.NONE);
 	}
 
 	/**
-	 * TODO getMostSpecializedConcept
-	 * @return
+	 * Initializes a new <code>Concept</code> with underscores meaning no
+	 * attribute of an example is wanted and returns it.
+	 * 
+	 * @return <code>Concept</code>
 	 */
 	public static Concept getMostSpecializedConcept()
 	{
-		return new Concept(AgeClass.NONE, Gender.NONE, Married.NONE, Children.NONE, Degree.NONE, Profession.NONE, Income.NONE);
+		return new Concept(AgeClass.NONE,
+				Gender.NONE,
+				Married.NONE,
+				Children.NONE,
+				Degree.NONE,
+				Profession.NONE,
+				Income.NONE);
 	}
 
 	/**
-	 * TODO getMostGeneralizedConcept
-	 * @return
+	 * Initializes a new <code>Concept</code> with stars meaning each attribute
+	 * of an example is wanted and returns it.
+	 * 
+	 * @return <code>Concept</code>
 	 */
 	public static Concept getMostGeneralizedConcept()
 	{
-		return new Concept(AgeClass.ALL, Gender.ALL, Married.ALL, Children.ALL, Degree.ALL, Profession.ALL, Income.ALL);
+		return new Concept(AgeClass.ALL,
+				Gender.ALL,
+				Married.ALL,
+				Children.ALL,
+				Degree.ALL,
+				Profession.ALL,
+				Income.ALL);
 	}
 
 	/**
-	 * TODO covers
+	 * Proofs if the <code>Concept</code> on which the method is called covers
+	 * the <code>Person</code> that is given.
+	 * 
 	 * @param p
-	 * @return
+	 *            <code>Person</code> that should be covered
+	 * @return false if <code>Person</code>'s and <code>Concept</code>'s
+	 *         attribute are unequal and the <code>Concept</code>'s attribute is
+	 *         not a star, true otherwise
 	 */
 	public boolean covers(Person p)
 	{
@@ -64,21 +90,31 @@ public class Concept extends Person
 	}
 
 	/**
-	 * TODO copy
-	 * @return
+	 * Makes a copy of a complete <code>Concept</code> and returns the copy
+	 * 
+	 * @return <code>Concept</code>
 	 */
 	public Concept copy()
 	{
-		Concept temp = new Concept(AgeClass.fromInteger(ageClass.getId()), Gender.fromInteger(gender.getId()), Married.fromInteger(married.getId()), Children.fromInteger(children.getId()), Degree.fromInteger(degree.getId()), Profession.fromInteger(profession.getId()), Income.fromInteger(income.getId()));
+		Concept temp = new Concept(AgeClass.fromInteger(ageClass.getId()),
+				Gender.fromInteger(gender.getId()),
+				Married.fromInteger(married.getId()),
+				Children.fromInteger(children.getId()),
+				Degree.fromInteger(degree.getId()),
+				Profession.fromInteger(profession.getId()),
+				Income.fromInteger(income.getId()));
 
 		return temp;
 	}
 
 	/**
-	 * TODO setAttribute
+	 * Matches the given name with the according class name and sets the enum
+	 * constant according to the given attribute.
 	 * 
 	 * @param name
+	 *            of the enum to be searched for
 	 * @param attribute
+	 *            number of a constant in the specified enum
 	 */
 	public void setAttribute(String name, Integer attribute)
 	{

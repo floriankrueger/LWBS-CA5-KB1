@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * TODO class doc
  * 
- *
+ * 
  */
 public class Star
 {
@@ -35,9 +35,12 @@ public class Star
 	}
 
 	/**
-	 * TODO addSpecializedConcept
+	 * Adds the given concept to the <code>Set</code> of specializedConcepts and
+	 * returns if it was successful
+	 * 
 	 * @param c
-	 * @return
+	 *            <code>Concept</code> that should be added
+	 * @return true if adding was successful, false otherwise
 	 */
 	//Fill sets with a concept c
 	public boolean addSpecializedConcept(Concept c)
@@ -46,9 +49,12 @@ public class Star
 	}
 
 	/**
-	 * TODO addGeneralizedConcept
+	 * Adds the given concept to the <code>Set</code> of generalizedConcepts and
+	 * returns if it was successful
+	 * 
 	 * @param c
-	 * @return
+	 *            <code>Concept</code> that should be added
+	 * @return true if adding was successful, false otherwise
 	 */
 	public boolean addGeneralizedConcept(Concept c)
 	{

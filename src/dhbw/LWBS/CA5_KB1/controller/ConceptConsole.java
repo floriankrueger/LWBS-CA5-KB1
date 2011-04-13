@@ -43,13 +43,13 @@ public class ConceptConsole
 
 		System.out.println("Please enter the attributes of the person to be tested (blank for \"_\")\n");
 
-		readAgeClass(c);
-		readGender(c);
-		readMarried(c);
-		readChildren(c);
-		readDegree(c);
-		readProfession(c);
-		readIncome(c);
+		readAgeClass(c);	System.out.println("> READ: " + c.getAgeClass());
+		readGender(c);		System.out.println("> READ: " + c.getGender());
+		readMarried(c);		System.out.println("> READ: " + c.getMarried());
+		readChildren(c);	System.out.println("> READ: " + c.getChildren());
+		readDegree(c);		System.out.println("> READ: " + c.getDegree());
+		readProfession(c);	System.out.println("> READ: " + c.getProfession());
+		readIncome(c);		System.out.println("> READ: " + c.getIncome());
 
 		System.out.println();
 

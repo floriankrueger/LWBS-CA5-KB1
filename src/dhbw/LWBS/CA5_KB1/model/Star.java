@@ -6,9 +6,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * TODO class doc
- * 
- * 
+ * This is returned if a concept was learned successfully through the algorithm.
+ * It consist of a <code>Set</code> containing specialized <code>Concepts</code>
+ * and a <code>Set</code> containing generalized <code>Concepts</code>.
  */
 public class Star
 {
@@ -42,7 +42,6 @@ public class Star
 	 *            <code>Concept</code> that should be added
 	 * @return true if adding was successful, false otherwise
 	 */
-	//Fill sets with a concept c
 	public boolean addSpecializedConcept(Concept c)
 	{
 		return specializedConcepts.add(c);

@@ -3,9 +3,10 @@ package dhbw.LWBS.CA5_KB1.model;
 import java.util.Map;
 
 /**
- * TODO class doc
- * 
- * 
+ * This is a specification of the class <code>Person</code>. In contrast to a
+ * <code>Person</code> a <code>Concept</code> doesn't contain a number or a
+ * book. Besides a <code>Concept</code> can be either specialized or
+ * generalized.
  */
 public class Concept extends Person
 {

@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO class doc
- * 
- * 
+ * This is a model of an example read from the <code>trainingData</code>. It
+ * contains all attributes and implements the interface <code>Comparable</code>
+ * in order be able to sort these examples in <code>TreeSets</code> in the class
+ * <code>AlgorithmUtility</code>.
  */
 public class Person implements Comparable<Person>
 {
@@ -81,7 +82,7 @@ public class Person implements Comparable<Person>
 
 	/**
 	 * Class Constructor initiating a <code>Person</code> with the help of
-	 * example data from a file
+	 * example data from a file.
 	 * 
 	 * @param data
 	 */

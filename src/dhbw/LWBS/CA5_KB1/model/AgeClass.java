@@ -84,11 +84,11 @@ public enum AgeClass
 		return null;
 	}
 	
-		/**
-		 * Returns the correct <code>AgeClass<code> token for a single given value (e.g. class 19-24 for the value 21) 
-		 * @param intValue an <code>int</code> that should be classified
-		 * @return the token representing the correct <code>AgeClass</code> for the given intValue
-		 */
+	/**
+	 * Returns the correct <code>AgeClass<code> token for a single given value (e.g. class 19-24 for the value 21) 
+	 * @param intValue an <code>int</code> that should be classified
+	 * @return the token representing the correct <code>AgeClass</code> for the given intValue
+	 */
 	private static String getClassFromValue(int intValue)
 	{
 		if (intValue <= 18)

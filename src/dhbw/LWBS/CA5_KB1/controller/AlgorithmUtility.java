@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import dhbw.LWBS.CA5_KB1.model.AgeClass;

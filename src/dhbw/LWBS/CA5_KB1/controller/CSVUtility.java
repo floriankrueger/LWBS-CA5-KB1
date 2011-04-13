@@ -8,10 +8,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * TODO class doc
- * 
- * Each example is put into a <code>Queue</code> so the first
- * example that is put into it is also pulled out first.
+ * Contains all methods needed to read a .csv file. It it used to read in the
+ * given <code>trainingData</code> for the teaching the algorithm. Each example
+ * is put into a <code>Queue</code> so the first example that is read in is also
+ * pulled out first.
  * 
  */
 public class CSVUtility

@@ -22,9 +22,8 @@ import dhbw.LWBS.CA5_KB1.model.Profession;
 import dhbw.LWBS.CA5_KB1.model.Star;
 
 /**
- * TODO class doc
- * 
- * 
+ * Contains all methods that are algorithmic procedures, for example the version
+ * space algorithm. The methods are used for both learning and estimation phase.
  */
 public class AlgorithmUtility
 {
@@ -112,8 +111,9 @@ public class AlgorithmUtility
 	 * another is picked out and list s is generalized. After s is finished it
 	 * iterates over the list of negative examples and every example that is
 	 * contained in S will be deleted from S. If S is empty the algorithm fails,
-	 * otherwise the method goes on. Now G is specialized
+	 * otherwise the method goes on.
 	 * <ol>
+	 * Now G is specialized
 	 * <li>Check if the current <code>Concept</code> of g covers the current
 	 * negative example</li>
 	 * <ul>
@@ -131,6 +131,7 @@ public class AlgorithmUtility
 	 * <li>If yes, a <code>Star></code> containing S and G is returned</li>
 	 * <li>If not, specializing of G goes on with the next negative example</li>
 	 * </ul>
+	 * </ol>
 	 * 
 	 * If there are no more negative examples the method returns a Star which
 	 * contains S and G <code>Concepts</code>.

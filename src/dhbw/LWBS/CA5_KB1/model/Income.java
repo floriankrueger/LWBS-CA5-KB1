@@ -65,6 +65,13 @@ public enum Income
 	{
 		if (token != null)
 		{
+			try {
+				int intValue = Integer.parseInt(token);
+				
+				token = getClassFromValue(intValue);
+			}
+			catch (NumberFormatException nfe) { /* do nothing, this will happen (in most cases) */ }
+			
 			for (Income a : Income.values())
 			{
 				if (token.equalsIgnoreCase(a.token))
@@ -77,6 +84,34 @@ public enum Income
 		return null;
 	}
 	
+	/**
+	 * Returns the correct <code>Income<code> token for a single given value (e.g. class 3000-3999 for the value 3412) 
+	 * @param intValue an <code>int</code> that should be classified
+	 * @return the token representing the correct <code>Income</code> for the given intValue
+	 */
+	private static String getClassFromValue(int intValue)
+	{
+		if (intValue <= 1000)
+			return "<1000";
+		
+		if ( (intValue > 1000) && (intValue <= 1999) )
+			return "1000-1999";
+		
+		if ( (intValue > 1999) && (intValue <= 2999) )
+			return "2000-2999";
+		
+		if ( (intValue > 2999) && (intValue <= 3999) )
+			return "3000-3999";
+		
+		if ( (intValue > 3999) && (intValue <= 4999) )
+			return "4000-4999";
+		
+		if (intValue > 5000)
+			return "5000 und mehr";
+		
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		if (id != 0)

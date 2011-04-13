@@ -14,7 +14,8 @@ import dhbw.LWBS.CA5_KB1.model.Married;
 import dhbw.LWBS.CA5_KB1.model.Profession;
 
 /**
- * TODO class doc
+ * Contains all methods needed for reading in user's input. It is used if no
+ * proof data is given.
  * 
  */
 public class ConceptConsole
@@ -32,9 +33,10 @@ public class ConceptConsole
 	}
 
 	/**
-	 * TODO readConcept
+	 * Asks the user for input and fills a <code>Concept</code> with the user's
+	 * input. The input is mapped on the enums' constants.
 	 * 
-	 * @return
+	 * @return <code>Concept</code> that is filled with the user's input
 	 */
 	public Concept readConcept()
 	{
@@ -43,13 +45,20 @@ public class ConceptConsole
 
 		System.out.println("Please enter the attributes of the person to be tested (blank for \"_\")\n");
 
-		readAgeClass(c);	System.out.println("> READ: " + c.getAgeClass());
-		readGender(c);		System.out.println("> READ: " + c.getGender());
-		readMarried(c);		System.out.println("> READ: " + c.getMarried());
-		readChildren(c);	System.out.println("> READ: " + c.getChildren());
-		readDegree(c);		System.out.println("> READ: " + c.getDegree());
-		readProfession(c);	System.out.println("> READ: " + c.getProfession());
-		readIncome(c);		System.out.println("> READ: " + c.getIncome());
+		readAgeClass(c);
+		System.out.println("> READ: " + c.getAgeClass());
+		readGender(c);
+		System.out.println("> READ: " + c.getGender());
+		readMarried(c);
+		System.out.println("> READ: " + c.getMarried());
+		readChildren(c);
+		System.out.println("> READ: " + c.getChildren());
+		readDegree(c);
+		System.out.println("> READ: " + c.getDegree());
+		readProfession(c);
+		System.out.println("> READ: " + c.getProfession());
+		readIncome(c);
+		System.out.println("> READ: " + c.getIncome());
 
 		System.out.println();
 
@@ -57,7 +66,10 @@ public class ConceptConsole
 	}
 
 	/**
-	 * TODO continueTesting
+	 * Asks the user if he wants to enter more test persons. If "yes" the
+	 * program calls <code>readConcept</code> again, if "no" the program stops.
+	 * 
+	 * @return true if the user wants to go on, false if the user wants to stop
 	 */
 	public boolean continueTesting()
 	{

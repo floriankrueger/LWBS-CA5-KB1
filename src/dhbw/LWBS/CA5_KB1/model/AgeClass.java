@@ -65,6 +65,13 @@ public enum AgeClass
 	{
 		if (token != null)
 		{
+			try {
+				int intValue = Integer.parseInt(token);
+				
+				token = getClassFromValue(intValue);
+			}
+			catch (NumberFormatException nfe) { /* do nothing, this will happen (in most cases) */ }
+			
 			for (AgeClass a : AgeClass.values())
 			{
 				if (token.equalsIgnoreCase(a.token))
@@ -77,6 +84,34 @@ public enum AgeClass
 		return null;
 	}
 	
+		/**
+		 * Returns the correct <code>AgeClass<code> token for a single given value (e.g. class 19-24 for the value 21) 
+		 * @param intValue an <code>int</code> that should be classified
+		 * @return the token representing the correct <code>AgeClass</code> for the given intValue
+		 */
+	private static String getClassFromValue(int intValue)
+	{
+		if (intValue <= 18)
+			return "<18";
+		
+		if ( (intValue > 18) && (intValue <= 24) )
+			return "19-24";
+		
+		if ( (intValue > 24) && (intValue <= 35) )
+			return "25-35";
+		
+		if ( (intValue > 35) && (intValue <= 49) )
+			return "36-49";
+		
+		if ( (intValue >= 50) && (intValue <= 65) )
+			return "50-65";
+		
+		if (intValue > 65)
+			return ">65";
+		
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		if (id != 0)

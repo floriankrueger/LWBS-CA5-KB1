@@ -13,14 +13,24 @@ import dhbw.LWBS.CA5_KB1.model.Concept;
 import dhbw.LWBS.CA5_KB1.model.Person;
 
 /**
- * TODO class doc
- * 
- * 
+ * Main class of the program. Contains the program flow.
  */
 public class CA5_KB1
-{	
+{
 	/**
-	 * TODO main
+	 * Starts the program
+	 * <ol>
+	 * <li>Read in the training data</li>
+	 * <li>Fill example sets for each book</li>
+	 * <li>Do the AQ-Algorithm for Book A, Book B and Book C</li>
+	 * <li>Show learned <code>Concepts</code> for Book A, Book B and Book C</li>
+	 * <li>Read in proof data</li>
+	 * <ul>
+	 * <li>Either through a .csv file</li>
+	 * <li>If this is not given, program enters interactive mode</li>
+	 * </ul>
+	 * <li>Show the guessed result</li>
+	 * </ol>
 	 * 
 	 * @param args
 	 *            command line arguments which contain the file name of training
@@ -31,7 +41,7 @@ public class CA5_KB1
 	{
 		// configure log4j
 		PropertyConfigurator.configure("log4j.properties");
-		
+
 		String trainingData = "gruppe_ca5_kb1.csv";
 		String proofData = null;
 
@@ -95,11 +105,11 @@ public class CA5_KB1
 			System.out.println("No proof data given, continuing to interactive mode");
 
 			ConceptConsole c = new ConceptConsole();
-			
-			do 
+
+			do
 			{
 				Person person = c.readConcept();
-				getResultForTestData(booksConcepts, person);	
+				getResultForTestData(booksConcepts, person);
 			} while (c.continueTesting());
 		}
 	}

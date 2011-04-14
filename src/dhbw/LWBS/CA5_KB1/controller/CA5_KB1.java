@@ -135,7 +135,7 @@ public class CA5_KB1
 				+ person.getBook() + "): ");
 
 		if (results.size() == 0)
-			System.out.println("No Book matched.");
+			System.out.print("No Book matched.");
 		else
 		{
 			System.out.print(results.get(0));
